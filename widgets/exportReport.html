@@ -1,0 +1,71 @@
+<!-- START Download button -->
+<script type="text/javascript" src="../lib/HTMLToX/tableExport.js"></script>
+<script type="text/javascript" src="../lib/HTMLToX/html2canvas.js"></script>
+<script type="text/javascript" src="../lib/HTMLToX/jquery.base64.js"></script>
+<script type="text/javascript" src="../lib/HTMLToX/base64.js"></script>
+<script type="text/javascript" src="../lib/HTMLToX/sprintf.js"></script>
+<script type="text/javascript" src="../lib/HTMLToX/jspdf.js"></script>
+
+<div class="btn-group">
+
+  <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-floppy-save" style="font-size: 25px;"></i>
+    Export Data
+  </button>
+
+  <ul class="dropdown-menu " role="menu">
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'json',escape:'false'});" style="cursor:pointer;">
+        <img src='../images/json.png' width='24px'>
+        JSON
+      </a>
+    </li>
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'json',escape:'false',ignoreColumn:'[2,3]'});" style="cursor:pointer;">
+        <img src='../images/json.png' width='24px'>
+        JSON (ignore Column)
+      </a>
+    </li>
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'json',escape:'true'});" style="cursor:pointer;">
+        <img src='../images/json.png' width='24px'>
+        JSON (with Escape)
+      </a>
+    </li>
+		<li class="divider"></li>
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'xml',escape:'false'});" style="cursor:pointer;">
+        <img src='../images/xml.png' width='24px'>
+        XML
+      </a>
+    </li>
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'sql'});" style="cursor:pointer;">
+        <img src='../images/sql.png' width='24px'>
+        SQL
+      </a>
+    </li>
+		<li class="divider"></li>
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'csv',escape:'false'});" style="cursor:pointer;">
+        <img src='../images/csv.png' width='24px'>
+        CSV
+      </a>
+    </li>
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'txt',escape:'false'});" style="cursor:pointer;">
+        <img src='../images/txt.png' width='24px'>
+        TXT
+      </a>
+    </li>
+		<li class="divider"></li>
+
+		<li>
+      <a href="#" onClick="$('#reportTable').tableExport({type:'excel',escape:'false'});" style="cursor:pointer;">
+        <img src='../images/xls.png' width='24px'>
+        XLS
+      </a>
+    </li>
+	</ul>
+</div>
+<!-- END Download button -->

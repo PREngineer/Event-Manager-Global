@@ -1,0 +1,3 @@
+INSERT INTO `Announcements` (`ID`, `ERG_ID`, `Title`, `Content`, `Posted`, `Expires`) VALUES
+(1, 0, 'Platform Development', 'We are currently working on the development of this platform.  We hope that you will find it useful!', '2018-04-14 16:45:59', '2020-12-31'),
+(2, 1, '24 hour outage', 'Since we are testing changes in the platform new events will not be posted during the next 24 hours.<br /><br />Please dont attempt to create new events.<br /><br />If you dont see it you know why now.', '2018-04-14 21:45:59', '2018-04-15');

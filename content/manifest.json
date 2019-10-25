@@ -1,0 +1,119 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Event Manager",
+  "scope": ".",
+  "display": "standalone",
+  "start_url": ".",
+  "short_name": "EM",
+  "theme_color": "#2196F3",
+  "description": "A progressive web application to manage events.",
+  "orientation": "any",
+  "background_color": "#380089",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "48x48",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "1240x600",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "300x300",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "88x88",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "24x24",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "50x50",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "620x300",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "144x144",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "96x96",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "72x72",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/TLogo.png",
+        "sizes": "36x36",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/Logo.png",
+        "sizes": "1024x1024",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/Logo.png",
+        "sizes": "180x180",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/Logo.png",
+        "sizes": "152x152",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/Logo.png",
+        "sizes": "120x120",
+        "type": "image/png",
+        "generated": true
+    },
+    {
+        "src": "../images/Logo.png",
+        "sizes": "76x76",
+        "type": "image/png",
+        "generated": true
+    }
+  ]
+}
