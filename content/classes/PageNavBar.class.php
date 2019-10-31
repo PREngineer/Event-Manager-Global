@@ -71,7 +71,7 @@ class PageNavBar
 
     if( !isset($_SESSION['userRole']) )
     {
-    echo'
+    $out .= '
               <li id="loginLink">
                 <a href="index.php?display=Login" style="cursor: pointer;">Login</a>
               </li>
@@ -80,7 +80,7 @@ class PageNavBar
 
     if( $_SESSION['userRole'] == 1 )
     {
-    echo'
+    $out .= '
               <li id="approverLink">
                 <a href="index.php?display=Approver" style="cursor: pointer;">Approvers</a>
               </li>
@@ -92,7 +92,7 @@ class PageNavBar
 
     if( $_SESSION['userRole'] == 2 )
     {
-    echo'
+    $out .= '
               <li id="pocLink">
                 <a href="index.php?display=Poc" style="cursor: pointer;">POCs</a>
               </li>
@@ -104,7 +104,7 @@ class PageNavBar
 
     if( $_SESSION['userRole'] == 3 )
     {
-    echo'
+    $out .= '
               <li id="adminLink" class="dropdown">
                 <a href="index.php?display=Admin" style="cursor: pointer;">Administrators</a>
               </li>

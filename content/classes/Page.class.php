@@ -18,7 +18,7 @@ class Page
     $this->NavBar = new PageNavBar();
   }
 
-  public function __Set($name, $value)
+  public function Set($name, $value)
   {
     $this->$name = $value;
   }

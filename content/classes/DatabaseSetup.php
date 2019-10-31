@@ -74,13 +74,13 @@ class DatabaseSetup
   {
     $dsn = '';
     
-    if($this->type == 'mysql')
+    if($this->type === 'mysql')
     {
       $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';charset=utf8';
     }
-    elseif($this->type == 'sqlsrv')
+    elseif($this->type === 'sqlsrv')
     {
-      $dsn = '';
+      $dsn = 'sqlsrv:Server=' . $this->host . ',' . $this->port . ';';
     }
     
     try
@@ -108,13 +108,13 @@ class DatabaseSetup
     {
       $dsn = '';
       
-      if($this->type == 'mysql')
+      if($this->type === 'mysql')
       {
         $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->name . ';charset=utf8';
       }
-      elseif($this->type == 'sqlsrv')
+      elseif($this->type === 'sqlsrv')
       {
-        $dsn = '';
+        $dsn = 'sqlsrv:Server=' . $this->host . ',' . $this->port . ';Database=testdb';
       }
       
       try
@@ -180,7 +180,7 @@ class DatabaseSetup
   {
     return $this->query_DB("CREATE TABLE `Announcements` (
                             `ID` bigint(20) NOT NULL AUTO_INCREMENT,
-                            `ERG_ID` bigint(20) NOT NULL,
+                            `Org_ID` bigint(20) NOT NULL,
                             `Title` text NOT NULL,
                             `Content` text NOT NULL,
                             `Posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -306,7 +306,7 @@ class DatabaseSetup
                                       ('16', '9', 'Networking'),
                                       ('17', '9', 'Networking (Happy Hour)'),
                                       ('18', '10', 'Relationship I&D'),
-                                      ('19', '10', 'Cross ERG')"
+                                      ('19', '10', 'Cross Org')"
                             );
     }
     else
