@@ -11,18 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap core CSS -->
-    <link href="theme/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="theme/css/bootstrap.min.css" rel="stylesheet">
-    <link href="theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
-    <link href="theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="content/theme/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="content/theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="content/theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+    <link href="content/theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 
     <!-- Importing jQuery and other dependencies -->
-    <script src="theme/js/jquery-3.2.1.min.js"></script>
-    <script src="theme/js/bootstrap-datepicker.min.js"></script>
-    <script src="theme/js/BootstrapValidator.min.js"></script>
+    <script src="content/theme/js/jquery-3.2.1.min.js"></script>
+    <script src="content/theme/js/bootstrap-datepicker.min.js"></script>
+    <script src="content/theme/js/BootstrapValidator.min.js"></script>
 
     <!-- Bootstrap JavaScript -->
-    <script src="theme/js/bootstrap.js"></script>
+    <script src="content/theme/js/bootstrap.js"></script>
   </head>
 
   <body>
@@ -36,29 +36,42 @@
         <hr>
 
         <p>
-          Please provide the following details to set up the database for the Event Manager Platform.
+          Please provide the following details to set up the database for the Event Manager platform.
         </p>
 
-        <p>
-          Important!<br>
-          The user provided should be an administrator.<br>
-          It will create a database and tables and it will set itself to work only on this Database
-          in the future.
-        </p>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type = "button" class="close" data-dismiss = "alert">x</button>
+          <b>Important!</b><br><br>
+          You must provide a database <b>administrator</b> account.<br><br>
+          It will need to <b>create a database and tables</b> and it will set itself as the account to be used 
+          to work on this Database in the future.
+        </div>
 
+        <br>
+        
         <div class="form-group">
           <label for="username">
-            ERG's Name:
+            Event Manager's Instance Name:
           </label>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="glyphicon glyphicon-book"></i>
             </span>
-            <input name="dbname" type="text" class="form-control" placeholder="DCHAERG" aria-describedby="dbnameHelp" required>
+            <input name="dbname" type="text" class="form-control" placeholder="MYORG" value="MYORG" aria-describedby="dbnameHelp" required>
           </div>
-      	   <small id="dbnameHelp" class="form-text text-muted">This is the ERG's identifier (name).  [Location][Identifier][ERG]  Ex: DCHAERG, DCAAERG</small>
+      	   <small id="dbnameHelp" class="form-text text-muted">This is will be the database's name.</small>
         </div>
 
+        <div class="form-group">
+          <label for="dbtype" style="margin-top:10px"><label class="text-danger">*</label> Database Type</label>
+          <div class="input-group form-control" aria-describedby="dbtypeHelp">
+            <input name="dbtype" type="radio" id="dbtype" value="mysql" checked required> MySQL, MariaDB
+            <br>
+            <input name="dbtype" type="radio" id="dbtype" value="sqlsrv" required> Microsoft SQL Server
+          </div>
+          <small id="dbtypeHelp" class="form-text text-muted">Only the types shown are supported.</small>
+        </div>
+        
         <div class="form-group">
           <label for="username">
             DB Username:
@@ -67,9 +80,9 @@
             <span class="input-group-addon">
               <i class="glyphicon glyphicon-user"></i>
             </span>
-            <input name="username" type="text" class="form-control" placeholder="root" aria-describedby="usernameHelp" required>
+            <input name="username" type="text" class="form-control" placeholder="root" value="root" aria-describedby="usernameHelp" required>
           </div>
-      	   <small id="usernameHelp" class="form-text text-muted">This is the database administrator username.</small>
+      	   <small id="usernameHelp" class="form-text text-muted">Must be an administrator username.</small>
         </div>
 
         <div class="form-group">
@@ -82,7 +95,7 @@
             </span>
             <input name="password" type="password" class="form-control" placeholder="password" aria-describedby="passwordHelp" required>
           </div>
-      	   <small id="passwordHelp" class="form-text text-muted">This is the database administrator password.</small>
+      	   <small id="passwordHelp" class="form-text text-muted">The administrator password.</small>
         </div>
 
         <div class="form-group">
@@ -93,9 +106,9 @@
             <span class="input-group-addon">
               <i class="glyphicon glyphicon-globe"></i>
             </span>
-            <input name="ip" type="text" class="form-control" placeholder="localhost or sub.domain.com or 10.0.0.25" aria-describedby="ipHelp" required>
+            <input name="ip" type="text" class="form-control" placeholder="localhost or sub.domain.com or 10.0.0.25" value="127.0.0.1" aria-describedby="ipHelp" required>
           </div>
-      	   <small id="ipHelp" class="form-text text-muted">This is the database ip or url.</small>
+      	   <small id="ipHelp" class="form-text text-muted">e.g. localhost, 10.38.4.56, mysqldb.database.windows.net, db.domain.tld</small>
         </div>
 
         <div class="form-group">
@@ -106,9 +119,9 @@
             <span class="input-group-addon">
               <i class="glyphicon glyphicon-asterisk"></i>
             </span>
-            <input name="port" type="text" class="form-control" placeholder="3306" aria-describedby="portHelp" required>
+            <input name="port" type="text" class="form-control" placeholder="3306" value="3306" aria-describedby="portHelp" required>
           </div>
-      	   <small id="portHelp" class="form-text text-muted">This is the database port.</small>
+      	   <small id="portHelp" class="form-text text-muted">Use the port configured for your database here instead of in the URL.</small>
         </div>
 
         <div class="form-group">
@@ -130,30 +143,26 @@
       }, 15000);
       </script>
 
+
+
       <?php
-
-      include 'functions/DB.php';
-
+      
+      require 'content/classes/DatabaseSetup.php';
+      
       // If the POST has information,
       // Check if the information provided was correct.
       if( !empty($_POST) )
       {
-        // Gather the information provided
-        $dbname = $_POST['dbname'];
-        $user   = $_POST['username'];
-        $pass   = $_POST['password'];
-        $host   = $_POST['ip'];
-        $port   = $_POST['port'];
-
-        $check = test_MySQL( $dbname, $user, $pass, $host, $port );
-
+        $dbsetup = new DatabaseSetup($_POST);
+        $check = $dbsetup->test();
+        
         // If the information is incorrect
         if($check !== True)
         {
           echo '<br><br>
                 <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type = "button" class="close" data-dismiss = "alert">x</button>
-                  [!] Could not connect to the MySQL Server.
+                  Could not connect to the MySQL Server.
                   <br><br>';
                   echo 'Error(s): ' . $check;
           echo '<br><br>
@@ -169,9 +178,9 @@
                 </div>';
 
           // Create Database
-          $result = setup_DB( $dbname, $user, $pass, $host, $port );
+          $result = $dbsetup->setup_DB();
 
-          if($result == 1)
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -182,34 +191,15 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating the database: ' . $_POST['dbname'] . '!<br><br>' .
+                    ' . count($result) . ' Error(s) occurred while creating the database: ' . $_POST['dbname'] . '!<br><br>' .
                     $result .
                   '</div>';
           }
 
-          // Create Attendance Table
-          $result = setup_AttendanceTable();
-
-          if($result['Result'])
-          {
-            echo '<div class="alert alert-success alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "Attendance".
-                  </div>';
-          }
-          else
-          {
-            echo '<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
-                  '</div>';
-          }
-
           // Create Announcements Table
-          $result = setup_AnnouncementsTable();
+          $result = $dbsetup->setup_AnnouncementsTable();
 
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -220,110 +210,34 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Announcements"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
-          // Create Dimensional Event Objective Table
-          $result = setup_DIMEventObjectiveTable();
-
-          if($result['Result'])
-          {
-            echo '<div class="alert alert-success alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "DIM Event Objective".
-                  </div>';
-          }
-          else
-          {
-            echo '<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
-                  '</div>';
-          }
-
-          // Create Dimensional Event Target Table
-          $result = setup_DIMEventTargetTable();
-
-          if($result['Result'])
-          {
-            echo '<div class="alert alert-success alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "DIM Event Target".
-                  </div>';
-          }
-          else
-          {
-            echo '<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
-                  '</div>';
-          }
+          // Create Attendance Table
+          $result = $dbsetup->setup_AttendanceTable();
           
-          // Create Dimensional Event Type Table
-          $result = setup_DIMEventTypeTable();
-
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "DIM Event Type".
+                    --> Successfully created table "Attendance".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
-                  '</div>';
-          }
-
-          // Create Dimensional Committee Table
-          $result = setup_DIMERGTable();
-
-          if($result['Result'])
-          {
-            echo '<div class="alert alert-success alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "DIM ERG".
-                  </div>';
-          }
-          else
-          {
-            echo '<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
-                  '</div>';
-          }
-
-          // Create Events Table
-          $result = setup_EventsTable();
-
-          if($result['Result'])
-          {
-            echo '<div class="alert alert-success alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "Events".
-                  </div>';
-          }
-          else
-          {
-            echo '<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating the Events table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Attendance"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
           // Create Event Change Log Table
-          $result = setup_EventChangeLogTable();
+          $result = $dbsetup->setup_EventChangeLogTable();
 
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -334,15 +248,91 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Event Change Log"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+
+          // Create Event Objectives Table
+          $result = $dbsetup->setup_EventObjectivesTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Event Objectives".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Event Objectives"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+
+          // Create Events Table
+          $result = $dbsetup->setup_EventsTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Events".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Events"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+
+          // Create Event Targets Table
+          $result = $dbsetup->setup_EventTargetsTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Event Targets".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Event Targets"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+          
+          // Create Event Types Table
+          $result = $dbsetup->setup_EventTypesTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Event Types".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Event Types"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
           // Create Leads Table
-          $result = setup_LeadsTable();
+          $result = $dbsetup->setup_LeadsTable();
 
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -353,34 +343,15 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
-                  '</div>';
-          }
-
-          // Create Members Table
-          $result = setup_MembersTable();
-
-          if($result['Result'])
-          {
-            echo '<div class="alert alert-success alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "Members".
-                  </div>';
-          }
-          else
-          {
-            echo '<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Leads"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
           // Create Membership Table
-          $result = setup_MembershipTable();
+          $result = $dbsetup->setup_MembershipTable();
 
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -391,15 +362,53 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Membership"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
-          // Create RSVP Table
-          $result = setup_RSVPTable();
+          // Create Members Table
+          $result = $dbsetup->setup_MembersTable();
 
-          if($result['Result'])
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Members".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Members"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+
+          // Create Orgs Table
+          $result = $dbsetup->setup_OrgsTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Orgs".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Orgs"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+          
+          // Create RSVP Table
+          $result = $dbsetup->setup_RSVPTable();
+
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -410,34 +419,34 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "RSVP"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
-          // Create Dimensional Committee Table
-          $result = setup_DIMSponsorCommitteeTable();
+          // Create Sponsor Committees Table
+          $result = $dbsetup->setup_SponsorCommitteesTable();
 
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created table "DIM Sponsor Committee".
+                    --> Successfully created table "Sponsor Committees".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Sponsor Committees"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
           // Create Users Table
-          $result = setup_UsersTable();
+          $result = $dbsetup->setup_UsersTable();
 
-          if($result['Result'])
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -448,15 +457,15 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating table "Users"!<br><br>' .
+                    $result .
                   '</div>';
           }
 
           // Create admin user
-          $result = create_adminUser();
+          $result = $dbsetup->create_adminUser();
 
-          if($result)
+          if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -467,8 +476,8 @@
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating admin user!<br><br>' .
-                    $result['Errors'] .
+                    ' . count($result) . ' Error(s) occurred while creating admin user!<br><br>' .
+                    $result .
                   '</div>';
           }
         }
@@ -500,97 +509,3 @@
   </body>
 
 </html>
-
-<!-- Begin Scripts for Inline Error Messages -->
-<script type="text/javascript">
-
-   $(document).ready(function()
-   {
-    $('#setupDBForm').bootstrapValidator(
-    {
-        container: '#messages',
-        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons:
-        {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields:
-        {
-			      dbname:
-            {
-                validators:
-                {
-                    notEmpty:
-                    {
-                        message: 'ERROR: Please enter the ERG\'s identifier.'
-                    }
-                }
-            },
-            username:
-            {
-                validators:
-                {
-                    notEmpty:
-                    {
-                        message: 'ERROR: Please enter the database server username.'
-                    }
-                }
-            },
-            password:
-            {
-                // The hidden input will not be ignored
-                excluded: false,
-                validators:
-                {
-                    notEmpty:
-                    {
-                        message: 'ERROR: Please enter the database server password.'
-                    }
-                }
-            },
-			      ip:
-            {
-                validators:
-                {
-                    notEmpty:
-                    {
-                        message: 'ERROR: Please enter database server ip.'
-                    }
-                }
-            },
-            port:
-            {
-                validators:
-                {
-                    notEmpty:
-                    {
-                        message: 'ERROR: Please enter the databaser server port.'
-                    }
-                }
-            }
-        }
-    })
-
-    // POST if everything is OK
-    .on('success.form.bv', function(e)
-    {
-          // Prevent form submission
-          e.preventDefault();
-
-          // Get the form instance
-          var $form = $(e.target);
-
-          // Get the BootstrapValidator instance
-          var bv = $form.data('bootstrapValidator');
-
-          // Use Ajax to submit form data
-          $.post($form.attr('display'), $form.serialize(), function(result)
-          {
-              console.log(result);
-          }, 'json');
-    });
-});
-
-</script>

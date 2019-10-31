@@ -1,4 +1,4 @@
-INSERT INTO `Events` (`ID`, `ERG_ID`, `Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Actual_Budget`, `Location`, `Committee_ID`, `Target`, `Type`, `Objective`, `Created`, `Creator_User_ID`, `Person_Code`, `Remote_Code`, `Approved`, `Deleted`) VALUES
+INSERT INTO `Events` (`ID`, `Org_ID`, `Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Actual_Budget`, `Location`, `Committee_ID`, `Target`, `Type`, `Objective`, `Created`, `Creator_User_ID`, `Person_Code`, `Remote_Code`, `Approved`, `Deleted`) VALUES
 ("1","1","Tutoring with LSF","2017-03-18","07:00:00","08:00:00","0","0","Glebe Office","5","1","3","6","0000-00-00 00:00:00","poc","AAI90A9J","900A9JD0","1","0"),
 ("2","1","Arlington Free Clinic Gala: Havana Nights","2017-10-28","07:00:00","08:00:00","0","0","External Location","5","1","3","6","2011-07-17 04:00:00","poc","D09AJ0D9","0AS9JA0S","1","0"),
 ("3","1","ALPFA - UMD Professional Development Workshop","2016-11-15","10:00:00","11:00:00","100","100","University of Maryland - Campus","1","3","10","18","0000-00-00 00:00:00","poc","KJD0U9AS","AIJS90QJ","1","0"),

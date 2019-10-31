@@ -1,4 +1,4 @@
-﻿INSERT INTO `Membership` (`ID`, `ERG_ID`, `Member_ID`) VALUES 
+INSERT INTO `Membership` (`ID`, `Org_ID`, `Member_ID`) VALUES 
 ("1","1","1"),
 ("2","1","2"),
 ("3","1","3"),

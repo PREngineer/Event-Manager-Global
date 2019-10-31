@@ -126,7 +126,7 @@ class Page
     <!-- ******************* Footer Section ******************* -->
       <div class="container">
         <div class="nav navbar-inverse navbar-fixed-bottom">
-          <p class="text-center text-muted">© 2017-'. DATE("Y") . 'My Company</p>
+          <p class="text-center text-muted">© 2017-'. DATE("Y") . ' Jorge Pabon</p>
         </div>
       </div>
     </div>

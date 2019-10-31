@@ -123,6 +123,9 @@ class PageNavBar
       </nav>
     </div>
 
+
+    
+
     <!-- Handle NavBar Highlights -->
     <script>';
 
