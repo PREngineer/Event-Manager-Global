@@ -23,15 +23,28 @@ class AnnouncementsBlock
     $this->Symbol   = $data['Symbol'];
   }
 
+  /**
+   * Set
+   *
+   * @param  mixed $name
+   * @param  mixed $value
+   *
+   * @return void
+   */
   public function Set($name, $value)
   {
     $this->$name = $value;
   }
 
+  /**
+   * Display - Returns the HTML of the Announcement Blocks
+   *
+   * @return string
+   */
   public function Display()
   {
     return '
-            <div class="col-lg-11 container thumbnail">
+            <div id="' . $this->Symbol . '" class="col-lg-11 container thumbnail">
               <table role="presentation" class="table">
               
                 <tr>

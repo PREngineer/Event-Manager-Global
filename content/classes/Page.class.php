@@ -6,23 +6,41 @@ class Page
 {
   
   //------------------------- Attributes -------------------------
-  public $content = "<br><h1>This page was not instantiated correctly.</h1>" . "\r\n";
+  public $content = "<br><br><h1>This page was not instantiated correctly.</h1>" . "\r\n";
   public $title = "Event Manager";
   public $keywords = "event manager";
   public $NavBar;
   
   //------------------------- Operations -------------------------
   
+  /**
+   * __construct
+   *
+   * @return void
+   */
   public function __construct()
   {
     $this->NavBar = new PageNavBar();
   }
 
+  /**
+   * Set
+   *
+   * @param  mixed $name
+   * @param  mixed $value
+   *
+   * @return void
+   */
   public function Set($name, $value)
   {
     $this->$name = $value;
   }
 
+  /**
+   * Display - Shows the actual page
+   *
+   * @return void
+   */
   public function Display()
   {
 

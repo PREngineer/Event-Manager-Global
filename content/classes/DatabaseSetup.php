@@ -18,7 +18,7 @@ class DatabaseSetup
   /**
    * __construct
    *
-   * @param  mixed $data
+   * @param  array $data
    *
    * @return void
    */
@@ -33,9 +33,7 @@ class DatabaseSetup
   }
 
   /**
-   * test - Checks whether the database information provided is correct
-   *
-   * @param  mixed $data
+   * test - Checks whether the database information provided is correct.
    *
    * @return bool
    */
@@ -68,7 +66,7 @@ class DatabaseSetup
   /**
    * first_connect - Establishes a connection to the database.
    *
-   * @return PDO|String Connection or Error
+   * @return bool|string Success|Error
    */
   private function first_connect()
   {
@@ -99,7 +97,7 @@ class DatabaseSetup
   /**
    * connect - Establishes a connection to the database.
    *
-   * @return PDO|String Connection or Error
+   * @return bool|string Success|Error
    */
   private function connect()
   {
@@ -131,11 +129,11 @@ class DatabaseSetup
   }
   
   /**
-   * queryDB - executes a query against the database.
+   * queryDB - Executes a query against the database.
    *
-   * @param  mixed $query
+   * @param  string $query
    *
-   * @return result data or result
+   * @return bool|string Success|Error
    */
   private function query_DB($query)
   {
@@ -157,9 +155,9 @@ class DatabaseSetup
   }
     
   /**
-   * create_adminUser
+   * create_adminUser - Creates the default Admin User.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function create_adminUser()
   {
@@ -172,9 +170,9 @@ class DatabaseSetup
   }
   
   /**
-   * setup_AnnouncementsTable
+   * setup_AnnouncementsTable - Creates the Announcements Table.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_AnnouncementsTable()
   {
@@ -193,9 +191,9 @@ class DatabaseSetup
   }
 
   /**
-   * setup_AttendanceTable
+   * setup_AttendanceTable - Creates the Attendance Table.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_AttendanceTable()
   {
@@ -212,9 +210,9 @@ class DatabaseSetup
   }
 
   /**
-   * setup_DB
+   * setup_DB - Creates the database.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_DB()
   {
@@ -241,20 +239,16 @@ class DatabaseSetup
     return True;
   }
 
-  /*
-    Description:
-      This function creates the RSVP table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_EventChangeLogTable - Creates the Event Change Log Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_EventChangeLogTable()
   {
     return $this->query_DB("CREATE TABLE `Event Change Log` (
                               `ID` bigint(20) NOT NULL AUTO_INCREMENT,
-                              `EventID` bigint(20) NOT NULL,
+                              `Event_ID` bigint(20) NOT NULL,
                               `Changed_By_ID` text NOT NULL,
                               `Type` text NOT NULL,
                               `Reason` text NOT NULL,
@@ -265,15 +259,11 @@ class DatabaseSetup
                           );
   }
 
-  /*
-    Description:
-      This function creates the Event Objective table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_EventObjectivesTable - Creates the Event Objectives Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_EventObjectivesTable()
   {
     $create = $this->query_DB("CREATE TABLE `Event Objectives` (
@@ -315,15 +305,11 @@ class DatabaseSetup
     }
   }
 
-  /*
-    Description:
-      This function creates the Events table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_EventsTable - Creates the Events Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_EventsTable()
   {
     return $this->query_DB("CREATE TABLE `Events` (
@@ -337,6 +323,7 @@ class DatabaseSetup
                             `Actual_Budget` double DEFAULT NULL,
                             `Location` text NOT NULL,
                             `Committee_ID` text NOT NULL,
+                            `Target` text NOT NULL,
                             `Type` text NOT NULL,
                             `Objective` text NOT NULL,
                             `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -353,9 +340,9 @@ class DatabaseSetup
   }
 
   /**
-   * setup_EventTargetsTable
+   * setup_EventTargetsTable - Creates the Event Targets Table.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_EventTargetsTable()
   {
@@ -381,15 +368,11 @@ class DatabaseSetup
     }
   }
   
-  /*
-    Description:
-      This function creates the Event Type table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_EventTypesTable - Creates the Event Types Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_EventTypesTable()
   {
     $create = $this->query_DB("CREATE TABLE `Event Types` (
@@ -423,15 +406,11 @@ class DatabaseSetup
     }
   }
 
-  /*
-    Description:
-      This function creates the Leads table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_LeadsTable - Creates the Leads Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_LeadsTable()
   {
     return $this->query_DB("CREATE TABLE `Leads` (
@@ -447,9 +426,9 @@ class DatabaseSetup
   }
 
   /**
-   * setup_MembershipTable
+   * setup_MembershipTable - Creates the Membership Table.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_MembershipTable()
   {
@@ -464,15 +443,11 @@ class DatabaseSetup
                           );
   }
 
-  /*
-    Description:
-      This function creates the Members table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_MembersTable - Creates the Members Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_MembersTable()
   {
     return $this->query_DB("CREATE TABLE `Members` (
@@ -498,9 +473,9 @@ class DatabaseSetup
   }
 
   /**
-   * setup_OrgsTable
+   * setup_OrgsTable - Creates the Orgs Table.
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_OrgsTable()
   {
@@ -520,9 +495,7 @@ class DatabaseSetup
     if( $create )
     {
       return $this->query_DB("INSERT INTO `Orgs` (`ID`, `Symbol`, `Name`, `Location`, `Region`, `Country`)
-                              VALUES  ('1', 'DCHAERG', 'Hispanic American Employee Resource Group', 'Washington, DC', 'South East', 'USA'),
-                                      ('2', 'DCAAERG', 'African American Employee Resource Group',  'Washington, DC', 'South East', 'USA'),
-                                      ('3', 'CHHAERG', 'Hispanic American Employee Resource Group', 'Chicago, IL', 'North East', 'USA')"
+                              VALUES  ('0', 'GLOBAL',  'All Orgs', 'All Locations', 'All Regions', 'All Countries')"
                             );
     }
     else
@@ -531,15 +504,11 @@ class DatabaseSetup
     }
   }
   
-  /*
-    Description:
-      This function creates the RSVP table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_RSVPTable - Creates the RSVP Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_RSVPTable()
   {
     return $this->query_DB("CREATE TABLE `RSVP` (
@@ -547,7 +516,7 @@ class DatabaseSetup
                               `Event_ID` BIGINT NOT NULL,
                               `Enterprise_ID` TEXT NOT NULL,
                               `Cancel` BOOLEAN NOT NULL,
-                              `Cancel_Reason` TEXT NOT NULL,
+                              `Cancel_Reason` TEXT,
                               `Cancel_Timestamp` TIMESTAMP,
                               `Register_Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                               PRIMARY KEY (`ID`) )
@@ -558,9 +527,9 @@ class DatabaseSetup
   }
 
   /**
-   * setup_SponsorCommitteeTable
+   * setup_SponsorCommitteesTable - Creates the Sponsor Committees Table
    *
-   * @return void
+   * @return bool|string Success|Error
    */
   public function setup_SponsorCommitteesTable()
   {
@@ -594,15 +563,11 @@ class DatabaseSetup
     }
   }
 
-  /*
-    Description:
-      This function creates the Users table
-    @PARAM:
-      NONE
-    @RETURN:
-      [Boolean] - False for failure
-      [Array]   - Array if successful
-  */
+  /**
+   * setup_UsersTable - Creates the Users Table.
+   *
+   * @return bool|string Success|Error
+   */
   public function setup_UsersTable()
   {
     return $this->query_DB("CREATE TABLE `Users` (

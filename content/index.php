@@ -4,10 +4,8 @@ require_once 'autoloader.php';
 
 if( $_GET['display'] === 'Announcements' )
 {
-    echo $_GET['display'];
-
     $page = new Announcements();
-    $page->Display();
+    $page->Display( $_POST['filter'] );
 }
 else
 {

@@ -6,34 +6,104 @@ class Announcements extends Page
 {
   
   //------------------------- Attributes -------------------------
-  public $content = '<br>';
+  private $db = null;
+  public $content = '<br><br>';
   public $title = "Event Manager - Announcements";
   public $keywords = "event manager, announcements";
   
   //------------------------- Operations -------------------------
   
+  /**
+   * __construct
+   *
+   * @return void
+   */
   public function __construct()
   {
+    $this->db = new Database();
     parent::__construct();
   }
 
+  /**
+   * getAll - Returns all of the active announcements.
+   *
+   * @return array
+   */
+  private function getAll()
+  {
+    return $this->db->query_DB("SELECT A.Title, A.Content, A.Posted, A.Expires, O.Symbol
+                                FROM Announcements A, Orgs O
+                                WHERE A.Org_ID = O.ID
+                                AND A.Expires >= '" . date('Y-m-d') . "'
+                                ORDER BY A.Expires
+                              ");
+  }
+
+  /**
+   * getFiltered - Returns all of the active announcements that match a filter by Org.
+   *
+   * @param  string $filter
+   *
+   * @return array
+   */
+  private function getFiltered( $filter )
+  {
+    return $this->db->query_DB("SELECT A.Title, A.Content, A.Posted, A.Expires, O.Symbol
+                                FROM Announcements A, Orgs O
+                                WHERE A.Org_ID = O.ID
+                                AND O.Symbol = '" . $filter . "'
+                                AND A.Expires >= '" . date('Y-m-d') . "'
+                                ORDER BY A.Expires
+                              ");
+  }
+
+  /**
+   * getFilters - Retrieves a list of unique Orgs to filter by.
+   *
+   * @return array
+   */
+  private function getFilters()
+  {
+    return $this->db->query_DB("SELECT DISTINCT O.Symbol
+                                FROM Announcements A, Orgs O
+                                WHERE A.Org_ID = O.ID
+                                AND A.Expires >= '" . date('Y-m-d') . "'
+                              ");
+  }
+
+  /**
+   * Set
+   *
+   * @param  string $name
+   * @param  string $value
+   *
+   * @return void
+   */
   public function Set($name, $value)
   {
     $this->$name = $value;
   }
 
-  public function Display()
+  /**
+   * Display - Displays the full page
+   *
+   * @param  mixed $filter
+   *
+   * @return void
+   */
+  public function Display( $filter )
   {
     // Get the data
-    $db = new Database();
-    
-    $data = $db->query_DB(
-                          "SELECT A.Title, A.Content, A.Posted, A.Expires, O.Symbol
-                           FROM Announcements A, Orgs O
-                           WHERE A.Org_ID = O.ID
-                           AND A.Expires >= '" . date('Y-m-d') . "'
-                           ORDER BY A.Expires
-                           ");
+    if( $filter === null || $filter === 'All' )
+    {
+      $data = $this->getAll();
+    }
+    else
+    {
+      $data = $this->getFiltered( $filter );
+    }
+
+    $filt = $this->getFilters();
 
     // Set the page header
     $this->content .= '
@@ -41,13 +111,17 @@ class Announcements extends Page
       <hr>
     ';
 
+    $filter = new AnnouncementsFilter( $filt );
+
+    $this->content .= $filter->Display();
+
     // Process the data into blocks
     if( sizeof($data) >= 0 )
     {
       foreach($data as $entry)
       {
-        $block = new AnnouncementsBlock($entry);
-        $this->content .= $block->Display();
+        $block = new AnnouncementsBlock( $entry );
+        $this->content .= $block->Display() . '<br><br>';
       }
     }
     else

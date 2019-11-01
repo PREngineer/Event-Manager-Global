@@ -1,0 +1,3 @@
+INSERT INTO `Users` (`Username`, `Password`, `Role`, `API_Key`) VALUES 
+('poc', 'b739d195ad7192bbd6a223a67645e3a766c239073667821cec0e07257f74410f', 2, 'ec629bf3d1c4ca244883089bbce7d7d521472e1be5ee7488f18116edde94bddd'),
+('approver', 'b739d195ad7192bbd6a223a67645e3a766c239073667821cec0e07257f74410f', 1, 'ec629bf3d1c4ca244883089bbce7d7d521472e1be5ee7488f18116edde94bddd');

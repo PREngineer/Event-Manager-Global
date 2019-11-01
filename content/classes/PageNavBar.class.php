@@ -1,8 +1,5 @@
 <?php
 
-/**
- * NavBar
- */
 class PageNavBar
 {
   //------------------------- Attributes -------------------------
@@ -21,9 +18,9 @@ class PageNavBar
   }
   
   /**
-   * Display
+   * Display - Returns the HTML of the NavBar
    *
-   * @return HTML Representation of the NavBar
+   * @return string NavBar
    */
   public function Display()
   {

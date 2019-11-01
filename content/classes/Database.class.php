@@ -18,8 +18,6 @@ class Database
   /**
    * __construct
    *
-   * @param  mixed $data
-   *
    * @return void
    */
   public function __construct()
@@ -40,7 +38,7 @@ class Database
   /**
    * connect - Establishes a connection to the database.
    *
-   * @return PDO|String Connection or Error
+   * @return PDO|String Connection|Error
    */
   private function connect()
   {
@@ -72,11 +70,11 @@ class Database
   }
   
   /**
-   * queryDB - executes a query against the database.
+   * queryDB - Executes a query against the database.
    *
-   * @param  mixed $query
+   * @param  string $query
    *
-   * @return result data or result
+   * @return array|string data|error
    */
   public function query_DB($query)
   {
