@@ -68,6 +68,7 @@ class Announcements extends Page
                                 FROM Announcements A, Orgs O
                                 WHERE A.Org_ID = O.ID
                                 AND A.Expires >= '" . date('Y-m-d') . "'
+                                ORDER BY O.Symbol
                               ");
   }
 
@@ -121,7 +122,7 @@ class Announcements extends Page
       foreach($data as $entry)
       {
         $block = new AnnouncementsBlock( $entry );
-        $this->content .= $block->Display() . '<br><br>';
+        $this->content .= $block->Display();
       }
     }
     else

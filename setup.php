@@ -1,3 +1,12 @@
+<?php
+
+if( file_exists('content/settings.php') )
+{
+  header("Location: index.html");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,9 +74,9 @@
         <div class="form-group">
           <label for="dbtype" style="margin-top:10px"><label class="text-danger">*</label> Database Type</label>
           <div class="input-group form-control" aria-describedby="dbtypeHelp">
-            <input name="dbtype" type="radio" id="dbtype" value="mysql" checked required> MySQL, MariaDB
+            <input name="dbtype" type="radio" id="dbtype" value="mysql" checked required>&nbsp;&nbsp;MySQL, MariaDB
             <br>
-            <input name="dbtype" type="radio" id="dbtype" value="sqlsrv" required> Microsoft SQL Server
+            <input name="dbtype" type="radio" id="dbtype" value="sqlsrv" required>&nbsp;&nbsp;Microsoft SQL Server
           </div>
           <small id="dbtypeHelp" class="form-text text-muted">Only the types shown are supported.</small>
         </div>
@@ -148,7 +157,7 @@
       <?php
       
       require 'content/classes/DatabaseSetup.php';
-      
+
       // If the POST has information,
       // Check if the information provided was correct.
       if( !empty($_POST) )
@@ -234,6 +243,44 @@
                   '</div>';
           }
 
+          // Create Career Levels Table
+          $result = $dbsetup->setup_CareerLevelsTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Career Levels".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Career Levels"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+          
+          // Create Company Segments Table
+          $result = $dbsetup->setup_CompanySegmentsTable();
+
+          if($result === True)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Company Segments".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    ' . count($result) . ' Error(s) occurred while creating table "Company Segments"!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+          
           // Create Event Change Log Table
           $result = $dbsetup->setup_EventChangeLogTable();
 

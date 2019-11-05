@@ -240,6 +240,71 @@ class DatabaseSetup
   }
 
   /**
+   * setup_CareerLevelsTable - Creates the Career Levels Table.
+   *
+   * @return void
+   */
+  public function setup_CareerLevelsTable()
+  {
+    $create = $this->query_DB("CREATE TABLE `Career Levels` (
+                                `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+                                `Level` text NOT NULL,
+                                `Name` text NOT NULL,
+                              PRIMARY KEY (`ID`)
+                              ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT
+                              CHARSET=utf8"
+     );
+
+    if( $create )
+    {
+      return $this->query_DB("INSERT INTO `Career Levels` (`Level`, `Name`)
+                              VALUES  ('14', 'Intern'),
+                                      ('13', 'Associate'),
+                                      ('12', 'Associate'),
+                                      ('11', 'Analyst'),
+                                      ('10', 'Sr. Analyst'),
+                                      ('9', 'Consultant'),
+                                      ('8', 'Associate Manager'),
+                                      ('7', 'Manager'),
+                                      ('6', 'Sr. Manager'),
+                                      ('L', 'Leadership')"
+          );
+    }
+    else
+    {
+      return $create;
+    }
+  }
+  
+  /**
+   * setup_CompanySegmentsTable - Creates the Company Segments Table.
+   *
+   * @return void
+   */
+  public function setup_CompanySegmentsTable()
+  {
+    $create = $this->query_DB("CREATE TABLE `Company Segments` (
+                                `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+                                `Segment` text NOT NULL,
+                              PRIMARY KEY (`ID`)
+                              ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT
+                              CHARSET=utf8"
+     );
+
+    if( $create )
+    {
+      return $this->query_DB("INSERT INTO `Company Segments` (`Segment`)
+                              VALUES  ('Federal'),
+                                      ('Commercial')"
+          );
+    }
+    else
+    {
+      return $create;
+    }
+  }
+
+  /**
    * setup_EventChangeLogTable - Creates the Event Change Log Table.
    *
    * @return bool|string Success|Error
@@ -316,12 +381,14 @@ class DatabaseSetup
                             `ID` bigint(20) NOT NULL AUTO_INCREMENT,
                             `Org_ID` bigint(20) NOT NULL,
                             `Name` text NOT NULL,
+                            `Overview` text NOT NULL,
                             `Date` date NOT NULL,
                             `Start` time NOT NULL,
                             `End` time NOT NULL,
                             `Estimated_Budget` double NOT NULL,
                             `Actual_Budget` double DEFAULT NULL,
                             `Location` text NOT NULL,
+                            `Address` text NOT NULL,
                             `Committee_ID` text NOT NULL,
                             `Target` text NOT NULL,
                             `Type` text NOT NULL,

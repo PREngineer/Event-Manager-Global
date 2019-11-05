@@ -29,31 +29,29 @@ class AnnouncementsFilter
   public function Display()
   {
     $content .= '
-      <form class="container" method="POST" action="index.php?display=Announcements" id="filterForm">
+      <form class="form-inline" role="form" method="POST" action="index.php?display=Announcements" id="filterForm">
 
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="input-group">
-                  <label class="input-group-addon">Filter by Org:</label>
-                  <select class="form-control" name="filter">
-                    <option>All</option>';
+        <div class="form-group">
+          <label>Filter by Org:</label>
+        </div>
+
+        <div class="form-group">
+          <select class="form-control" name="filter">
+            <option>All</option>';
 
     foreach( $this->data as $one )
     {
       $content .= '
-                    <option>' . $one['Symbol'] . '</option>';
+            <option>' . $one['Symbol'] . '</option>';
     }
 
     $content .= '                
-                  </select>
-                  <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">
-                      <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filter
-                    </button>
-                  </span>
-                </div>
-              </div>
-            </div>
+          </select>
+        </div>
+      
+        <button type="submit" class="btn btn-primary">
+          <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filter
+        </button>
 
       </form><br>
     ';

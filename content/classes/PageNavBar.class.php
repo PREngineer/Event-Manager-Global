@@ -51,13 +51,13 @@ class PageNavBar
                 <a href="index.php?display=Announcements" style="cursor: pointer;">Announcements</a>
               </li>
               <li id="currentLink">
-                <a href="index.php?display=Current" style="cursor: pointer;">Current Events</a>
+                <a href="index.php?display=CurrentEvents" style="cursor: pointer;">Current Events</a>
               </li>
               <li id="futureLink">
-                <a href="index.php?display=Future" style="cursor: pointer;">Future Events</a>
+                <a href="index.php?display=FutureEvents" style="cursor: pointer;">Future Events</a>
               </li>
               <li id="myRSVPLink">
-                <a href="index.php?display=MyRSVP" style="cursor: pointer;">My RSVPs</a>
+                <a href="index.php?display=MyRSVPs" style="cursor: pointer;">My RSVPs</a>
               </li>
               <li id="createMemberLink">
                 <a href="index.php?display=CreateMember" style="cursor: pointer;">New Member</a>

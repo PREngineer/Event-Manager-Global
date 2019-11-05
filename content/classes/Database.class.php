@@ -85,14 +85,17 @@ class Database
       $this->connect();
       
       $stmt = $this->conn->prepare($query);
-      $stmt->execute();
+      $data = $stmt->execute();
     }
     catch(PDOException $error)
     {
       return $error->getMessage();
     }
 
-    $data = $stmt->fetchAll();
+    if( strpos( $query, 'SELECT ' ) !== False )
+    {
+      $data = $stmt->fetchAll();
+    }
 
     $stmt = null;
 
