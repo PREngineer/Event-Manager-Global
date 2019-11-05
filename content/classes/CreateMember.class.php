@@ -104,6 +104,13 @@ class CreateMember extends Page
                               ");
   }
 
+  /**
+   * handlePOST - Takes control of the action once the form is posted.
+   *
+   * @param  mixed $posted
+   *
+   * @return void
+   */
   private function handlePOST( $posted )
   {
     $success = $this->createMember( $posted );
@@ -146,6 +153,13 @@ class CreateMember extends Page
     }
   }
 
+  /**
+   * linkToOrg - Creates an entry in the Membership table.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function linkToOrg( $data )
   {
     $Org_ID    = (

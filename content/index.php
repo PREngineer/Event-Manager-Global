@@ -1,5 +1,7 @@
 <?php
 
+require_once ('init.php');
+
 /**
  * This file serves as a router for all the requests to the application.
  * It will call the appropriate class depending on the request type.
@@ -46,6 +48,18 @@ else if( $_GET['display'] === 'Login' )
 {
     $page = new Login();
     $page->Display( $_POST );
+}
+// Handle Logout
+else if( $_GET['display'] === 'Logout' )
+{
+  unset($_SESSION);
+  session_destroy();
+
+  echo '
+    <script>
+      window.location = "index.php";
+    </script>
+  ';
 }
 // Handle MyRSVPs
 else if( $_GET['display'] === 'MyRSVPs' )

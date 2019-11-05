@@ -111,6 +111,18 @@ class PageNavBar
     ';
     }
 
+    if( $_SESSION['userRole'] == 4 )
+    {
+    $out .= '
+              <li id="globalAdminLink" class="dropdown">
+                <a href="index.php?display=GlobalAdmin" style="cursor: pointer;">Global Admins</a>
+              </li>
+              <li id="loginLink">
+                <a href="index.php?display=Logout" style="cursor: pointer;">Logout</a>
+              </li>
+    ';
+    }
+
     $out .= '
             </ul>
           </div>
@@ -240,6 +252,19 @@ class PageNavBar
     {
       $out .= '
       document.getElementById("adminLink").classList.remove("active");
+      ';
+    }
+
+    if( $_GET['display'] == 'GlobalAdmin' && $_SESSION['userRole'] == 4 )
+    {
+      $out .= '
+      document.getElementById("globalAdminLink").classList.add("active");
+      ';
+    }
+    if( $_GET['display'] != 'GlobalAdmin' && $_SESSION['userRole'] == 4 )
+    {
+      $out .= '
+      document.getElementById("globalAdminLink").classList.remove("active");
       ';
     }
 

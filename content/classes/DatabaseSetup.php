@@ -48,12 +48,17 @@ class DatabaseSetup
 
       $content = '
       <?php
+        // Database related settings
         $DBHOST = "' . $this->host . '";
         $DBPORT = "' . $this->port . '";
         $DBNAME = "' . $this->name . '";
         $DBUSER = "' . $this->user . '";
         $DBPASS = "' . $this->pass . '";
         $DBTYPE = "' . $this->type . '";
+
+        // Login related settings
+        $LOGINTYPE = "App";
+        $LOGINURL  = "localhost";
       ?>';
 
       file_put_contents($file, $content);
@@ -165,7 +170,7 @@ class DatabaseSetup
     $apik = hash( 'sha256', SHA1( MD5( "administrator" . Date("Ymd") ) ) );
     return $this->query_DB("INSERT INTO `Users`
                             (`Username`, `Password`, `Role`, `API_Key`)
-                            VALUES ('administrator','" . $pass . "','3','" . $apik . "')"
+                            VALUES ('administrator','" . $pass . "','4','" . $apik . "')"
                           );
   }
   
