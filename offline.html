@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<!-- App Title/Name -->
+	<title>Event Manager - Offline</title>
+
+	<!---------------------------------------------- BOOTSTRAP INFORMATION ---------------------------------------------->
+
+	<!-- CSS - Bootstrap and other dependencies -->
+	<link href="theme/css/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="theme/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
+	<link href="theme/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+	<link href="theme/css/jquery.timepicker.min.css" rel="stylesheet" />
+
+	<!-- JS - jQuery and other dependencies -->
+	<script src="theme/js/jquery-3.2.1.min.js"></script>
+	<script src="theme/js/bootstrap-datepicker.min.js"></script>
+	<script src="theme/js/jquery.timepicker.min.js"></script>
+	<script src="theme/js/BootstrapValidator.min.js"></script>
+	<script src="theme/js/validator.js"></script>
+
+	<!-- JS - Bootstrap -->
+	<script src="theme/js/bootstrap.js"></script>
+
+	<!---------------------------------------------- PWA INFORMATION ---------------------------------------------->
+
+	<!-- PWA Manifest -->
+	<link rel="manifest" href="manifest.json" />
+	<script src="manup.js"></script>
+
+	<!-- PWA Service Worker -->
+	<script src="sw.js"></script>
+	<script src="sw-reg.js"></script>
+
+	<!----------------- For Android Devices ----------------->
+	<!-- Define the Home Screen icon -->
+	<link rel="icon" sizes="192x192" href="images/TLogo.png" />
+	<!-- Hide Android UI buttons and set the splash color -->
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="theme-color" content="#2196F3" />
+
+	<!----------------- For Apple Devices ----------------->
+	<!-- Make the status bar black -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<!-- Define the name of the icon in the Home Screen -->
+	<meta name="apple-mobile-web-app-title" content="Event Manager" />
+	<!-- Define the Home Screen icon -->
+	<link rel="apple-touch-icon" href="images/TLogo.png" />
+	<!-- Hide Safari UI buttons -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Define the Apple Splash Screens -->
+	<link href="images/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="images/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="images/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="images/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+	<!-- For Microsoft Devices -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="msapplication-TileImage" content="images/TLogo.png" />
+	<meta name="msapplication-TileColor" content="#2196F3" />
+
+	<!-- ... -->
+	<meta property="og:title" content="Event Manager" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="images/TLogo.png" />
+	<meta property="og:url" content="' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '" />
+	<meta property="og:description" content="A progressive web application to manage events." />
+
+	<!-- Twitter References -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:url" content="https://www.twitter.com/PianistaPR" />
+	<meta name="twitter:title" content="Event Manager" />
+	<meta name="twitter:description" content="A progressive web application to manage events." />
+	<meta name="twitter:image" content="images/TLogo.png" />
+	<meta name="twitter:creator" content=@PianistaPR>
+
+	<!----------------- Generic HTML5 App Information ----------------->
+	<!-- Specify HTML5 Web App name and description -->
+	<meta name="application-name" content="Event Manager" />
+	<meta name="description" content="A progressive web application to manage events." />
+	<meta name="author" content="Jorge Pabon" />
+	<!-- Encoding and Mobile First -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+<div id="offline" class="text-center container">
+	<img src="images/Offline.png" alt="You are offline.">
+
+	<h3>
+		You are currently offline.<br><br>
+		Please make sure that you have internet access and try again.
+	</h3>
+	<br>
+	<button class="btn btn-primary" onclick="window.location.href='index.php'">Try again</button>
+</div>
+<br>
+
+
+<div class="footer text-center navbar-default navbar-fixed-bottom container">
+  <div class="inner">
+
+	<p>&copy; <span id="year"></span>
+
+	<script>
+		var d = new Date();
+		var n = d.getFullYear();
+		document.getElementById("year").innerHTML = n;
+	</script>
+
+	Jorge Pabon
+	<br>
+	All Rights Reserved.</p>
+  </div>
+</div>
+
+</body>
+
+</html>
