@@ -18,7 +18,10 @@ This project is designed as a Progressive Web App.  This means that the project 
 
 It consists of a Web Server component and a Database component.  The Web Server component is used to display a user interface and reporting.  The Database component is used to hold the data of interest.
 
-Admin authentication is done through an Azure Active Directory.
+Authentication is done 
+  1. In App
+  2. Active Directory (pending)
+  3. Azure Active Directory (pending)
 
 Core web development technologies include:
   * HTML
@@ -62,17 +65,9 @@ Libraries/Frameworks used:
 
 # Important Considerations:
 
-  * Not all links work like they do normally!
-
-    The links' "href" property has been removed and replaced by a "link" property that is read by
-    the JavaScript link handler function.
-
-    This is done because we do not want a complete reload of a new page.  We just care about
-    replacing the content of a DIV that represents the content of the pages.  We want to maintain the same navigation menu and footer.
-
-    This also allows for better management of code in different locations without having a
-    negative effect on others.
+  * iOS is implementing PWAs much better now.  This mean that the "hacking" to make it work has been minimized drastically.
 
 # License
 
-All rights are reserved by Jorge Pabon.  Use of this application without a license is not authorized.  For licensing costs contact Jorge Pabon at pianistapr@hotmail.com.
+All rights are reserved by Jorge Pabon.  Use of this application without a license is not authorized.
+For licensing costs contact Jorge Pabon at pianistapr@hotmail.com.
