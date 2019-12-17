@@ -61,7 +61,7 @@ function protectGlobalAdmin()
 */
 function protectAdmin()
 {
-  if( $_SESSION['userRole'] != '3' )
+  if( $_SESSION['userRole'] != '3'  && $_SESSION['userRole'] != '4' )
   {
     // destroy the session 
     unset($_SESSION);
@@ -80,7 +80,7 @@ function protectAdmin()
 */
 function protectApprover()
 {
-  if( $_SESSION['userRole'] != '1' && $_SESSION['userRole'] != '3' && $_SESSION['userRole'] != '4')
+  if( $_SESSION['userRole'] != '1' && $_SESSION['userRole'] != '3' && $_SESSION['userRole'] != '4' )
   {
     // destroy the session 
     unset($_SESSION);
@@ -97,9 +97,9 @@ function protectApprover()
   - Used all over the place
   @Return - Boolean (T or F) if logged in
 */
-function protectPoc()
+function protectPOC()
 {
-  if( $_SESSION['userRole'] != '2' && $_SESSION['userRole'] != '3' && $_SESSION['userRole'] != '4')
+  if( $_SESSION['userRole'] != '2' && $_SESSION['userRole'] != '3' && $_SESSION['userRole'] != '4' )
   {
     // destroy the session 
     unset($_SESSION);

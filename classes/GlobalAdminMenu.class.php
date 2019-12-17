@@ -79,7 +79,7 @@ class GlobalAdminMenu extends Page
       <tr>
         <td><a href="index.php?display=Attendance" style="cursor:pointer;">Attendance</a></td>
         <td>
-          Use this option to add, remove, and mofidy the attendance.
+          Use this option to add, remove, and modify the attendance.
         </td>
       </tr>
   
@@ -100,7 +100,7 @@ class GlobalAdminMenu extends Page
       <tr>
         <td><a href="index.php?display=Reports" style="cursor:pointer;">Reports</a></td>
         <td>
-          Use this option to view live or historical reports about the organization\'s membership, attendance, events, etc.
+          Use this option to view live or historical reports about the organizations, membership, attendance, events, etc.
         </td>
       </tr>
   

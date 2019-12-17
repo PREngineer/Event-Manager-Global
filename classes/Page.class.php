@@ -159,7 +159,7 @@ class Page
     
     echo '
       </div>
-      <br>
+      <br><br>
       <!-- ******************* Footer Section ******************* -->
       <div class="container-fluid">
       

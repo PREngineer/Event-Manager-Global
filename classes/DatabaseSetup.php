@@ -338,6 +338,7 @@ class DatabaseSetup
   {
     $create = $this->query_DB("CREATE TABLE `Event Objectives` (
                                 `ID` BIGINT NOT NULL,
+                                `Target` BIGINT NOT NULL,
                                 `Type` BIGINT NOT NULL,
                                 `Name` TEXT NOT NULL)
                                 ENGINE  = InnoDB
@@ -347,26 +348,26 @@ class DatabaseSetup
 
     if( $create )
     {
-      return $this->query_DB("INSERT INTO `Event Objectives` (`ID`, `Type`, `Name`)
-                              VALUES  ('1',  '1', 'Networking'),
-                                      ('2',  '2', 'Mentorship'),
-                                      ('3',  '2', 'Skills to Succeed'),
-                                      ('4',  '2', 'Leading in the New'),
-                                      ('5',  '2', 'Community of Practice'),
-                                      ('6',  '3', 'Networking'),
-                                      ('7',  '3', 'Networking (Happy Hour)'),
-                                      ('8',  '4', 'Corporate Citizenship'),
-                                      ('9',  '5', 'Philantropy'),
-                                      ('10', '5', 'Fundraiser'),
-                                      ('11', '6', 'I&D Recruiting'),
-                                      ('12', '7', 'Sponsorship'),
-                                      ('13', '8', 'Prospective Clients'),
-                                      ('14', '8', 'Client Connection'),
-                                      ('15', '9', 'Sponsorship'),
-                                      ('16', '9', 'Networking'),
-                                      ('17', '9', 'Networking (Happy Hour)'),
-                                      ('18', '10', 'Relationship I&D'),
-                                      ('19', '10', 'Cross Org')"
+      return $this->query_DB("INSERT INTO `Event Objectives` (`ID`, `Target`, `Type`, `Name`)
+                              VALUES  ('1',  '1', '1', 'Networking'),
+                                      ('2',  '1', '2', 'Mentorship'),
+                                      ('3',  '1', '2', 'Skills to Succeed'),
+                                      ('4',  '1', '2', 'Leading in the New'),
+                                      ('5',  '1', '2', 'Community of Practice'),
+                                      ('6',  '1', '3', 'Networking'),
+                                      ('7',  '1', '3', 'Networking (Happy Hour)'),
+                                      ('8',  '1', '4', 'Corporate Citizenship'),
+                                      ('9',  '2', '5', 'Philantropy'),
+                                      ('10', '2', '5', 'Fundraiser'),
+                                      ('11', '2', '6', 'I&D Recruiting'),
+                                      ('12', '2', '7', 'Sponsorship'),
+                                      ('13', '3', '8', 'Prospective Clients'),
+                                      ('14', '3', '8', 'Client Connection'),
+                                      ('15', '3', '9', 'Sponsorship'),
+                                      ('16', '3', '9', 'Networking'),
+                                      ('17', '3', '9', 'Networking (Happy Hour)'),
+                                      ('18', '3', '10', 'Relationship I&D'),
+                                      ('19', '3', '10', 'Cross Org')"
                             );
     }
     else

@@ -67,48 +67,62 @@ else if( $_GET['display'] === 'MyRSVPs' )
     $page = new MyRSVPs();
     $page->Display( $_POST );
 }
+// Cancel My RSVP
+else if( $_GET['display'] === 'CancelRSVP' )
+{
+    $page = new CancelRSVP();
+    $page->Display( $_POST );
+}
 
 /****************
     Global Admin Pages
 ****************/
 
-// Handle Global Admin
+// Handle Global Admin Menu
 else if( $_GET['display'] === 'GlobalAdminMenu' )
 {
     $page = new GlobalAdminMenu();
     $page->Display();
-}
-// Handle Global Admin
-else if( $_GET['display'] === 'AdminMenu' )
-{
-    $page = new AdminMenu();
-    $page->Display();
-}
-// Handle Global Admin
-else if( $_GET['display'] === 'POCMenu' )
-{
-    $page = new POCMenu();
-    $page->Display();
-}
-// Handle Global Admin
-else if( $_GET['display'] === 'ApproverMenu' )
-{
-    $page = new ApproverMenu();
-    $page->Display( $_GET );
 }
 
 /****************
     Org Admin Pages
 ****************/
 
+// Handle Admin Menu
+else if( $_GET['display'] === 'AdminMenu' )
+{
+    $page = new AdminMenu();
+    $page->Display();
+}
+
 /****************
     POC Pages
 ****************/
+
+// Handle POC Menu
+else if( $_GET['display'] === 'POCMenu' )
+{
+    $page = new POCMenu();
+    $page->Display();
+}
+// Handle POC Create Event
+else if( $_GET['display'] === 'CreateEvent' )
+{
+    $page = new CreateEvent();
+    $page->Display( $_POST );
+}
 
 /****************
     Approver Pages
 ****************/
 
+// Handle Approver Menu
+else if( $_GET['display'] === 'ApproverMenu' )
+{
+    $page = new ApproverMenu();
+    $page->Display( $_GET );
+}
 
 // Not instantiated properly
 else

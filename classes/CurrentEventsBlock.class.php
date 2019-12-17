@@ -68,7 +68,7 @@ class CurrentEventsBlock
 
     return '
     <div class="col-sm-3">
-      <div class="thumbnail" style="height: 640px;">
+      <div class="thumbnail" style="height: 710px;">
 
         <div class="caption">
 

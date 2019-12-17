@@ -277,7 +277,10 @@ class PageNavBar
     }
 
     $out .= '
-    </script>';
+    </script>
+    
+    
+    ';
 
     return $out;
   }
