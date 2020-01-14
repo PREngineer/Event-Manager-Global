@@ -31,6 +31,12 @@ else if( $_GET['display'] === 'CurrentEvents' || !isset($_GET['display']) )
     $page = new CurrentEvents();
     $page->Display( $_POST );
 }
+// Handle Current Event Details
+else if( $_GET['display'] === 'CurrentEventDetails' )
+{
+    $page = new CurrentEventDetails( $_GET['id'] );
+    $page->Display();
+}
 // Handle Future Events
 else if( $_GET['display'] === 'FutureEvents' )
 {
@@ -61,6 +67,19 @@ else if( $_GET['display'] === 'Logout' )
     </script>
   ';
 }
+// Handle RSVP registrations
+else if( $_GET['display'] === 'RSVP' )
+{
+    $page = new RSVP();
+    if( empty( $_POST ) )
+    {
+        $page->Display( $_GET );
+    }
+    else
+    {
+        $page->Display( $_POST );
+    }
+}
 // Handle MyRSVPs
 else if( $_GET['display'] === 'MyRSVPs' )
 {
@@ -71,7 +90,14 @@ else if( $_GET['display'] === 'MyRSVPs' )
 else if( $_GET['display'] === 'CancelRSVP' )
 {
     $page = new CancelRSVP();
-    $page->Display( $_POST );
+    if( empty( $_POST ) )
+    {
+        $page->Display( $_GET );
+    }
+    else
+    {
+        $page->Display( $_POST );
+    }
 }
 
 /****************

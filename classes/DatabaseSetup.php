@@ -590,7 +590,7 @@ class DatabaseSetup
                               `Enterprise_ID` TEXT NOT NULL,
                               `Cancel` BOOLEAN NOT NULL,
                               `Cancel_Reason` TEXT,
-                              `Cancel_Timestamp` TIMESTAMP,
+                              `Cancel_Timestamp` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
                               `Register_Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                               PRIMARY KEY (`ID`) )
                               ENGINE  = InnoDB

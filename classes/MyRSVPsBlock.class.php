@@ -85,7 +85,11 @@ class MyRSVPsBlock
           <table role="presentation" class="table">
 
             <tr>
-              <td style="height: 60px;" class="text-center" colspan="2"><strong>' . $this->Name . '</strong></td>
+              <td style="height: 60px;" class="text-center" colspan="2">
+                <strong>
+                  <a href="index.php?display=FutureEventDetails&id=' . $this->ID . '">' . $this->Name . '</a>
+                </strong>
+              </td>
             </tr>
 
             <tr>

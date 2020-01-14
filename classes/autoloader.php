@@ -10,7 +10,7 @@ spl_autoload_register('AutoLoad');
  *
  * @return void
  */
-function AutoLoad($className)
+function AutoLoad( $className )
 {
     $path       = './';
     $extension  = '.class.php';

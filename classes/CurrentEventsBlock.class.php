@@ -21,7 +21,7 @@ class CurrentEventsBlock
   public function __construct($data)
   {
     $this->ID = $data['ID'];
-
+    // Limit the Event Name
     if( strlen( $data['Name'] ) > 50 )
     {
       $this->Name = substr( $data['Name'], 0, 46) . '...';
@@ -30,7 +30,7 @@ class CurrentEventsBlock
     {
       $this->Name = $data['Name'];
     }
-
+    // Limit the Event Overview
     if( strlen( $data['Overview'] ) > 200 )
     {
       $this->Overview = substr( $data['Overview'], 0, 196) . '...';
@@ -44,6 +44,7 @@ class CurrentEventsBlock
     $this->Start = $data['Start'];
     $this->End   = $data['End'];
 
+    // Limit the Event Location
     if( strlen( $data['Location'] ) > 56 )
     {
       $this->Location = substr( $data['Location'], 0, 52) . '...';
@@ -81,7 +82,11 @@ class CurrentEventsBlock
           <table role="presentation" class="table">
 
             <tr>
-              <td style="height: 60px;" class="text-center" colspan="2"><strong>' . $this->Name . '</strong></td>
+              <td style="height: 60px;" class="text-center" colspan="2">
+                <strong>
+                <a href="index.php?display=CurrentEventDetails&id=' . $this->ID . '">' . $this->Name . '</a>
+                </strong>
+              </td>
             </tr>
 
             <tr>
