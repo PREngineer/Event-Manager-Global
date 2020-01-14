@@ -4,15 +4,15 @@ require_once 'autoloader.php';
 
 class MyRSVPs extends Page
 {
-  
+
   //------------------------- Attributes -------------------------
   private $db = null;
   public $content = '<br><br>';
   public $title = "Event Manager - My RSVPs";
   public $keywords = "event manager, My RSVPs";
-  
+
   //------------------------- Operations -------------------------
-  
+
   /**
    * __construct
    *
@@ -32,8 +32,9 @@ class MyRSVPs extends Page
   private function getAll( $id )
   {
     $date = date('Y-m-d');
-    
-    return $this->db->query_DB("SELECT E.ID, E.Name, E.Overview, E.Date, E.Start, E.End, E.Location, E.Address, O.Symbol AS Org, R.Enterprise_ID AS EID, R.ID AS RSVPID
+
+    return $this->db->query_DB("SELECT E.ID, E.Name, E.Overview, E.Date, E.Start, E.End, E.Location, E.Address,
+                                O.Symbol AS Org, R.Enterprise_ID AS EID, R.ID AS RSVPID
                                 FROM Events E
                                 INNER JOIN Orgs O
                                 ON E.Org_ID = O.ID
@@ -60,31 +61,29 @@ class MyRSVPs extends Page
     $this->content .= '
       <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">My RSVPs</h1>
       <hr>
-    ';
+      <!-- Form STARTS here -->
 
-    $this->content .= '
-    <!-- Form STARTS here -->
+      <form class="form-inline" role="form" method="POST" action="index.php?display=MyRSVPs" id="myRSVPForm">
 
-    <form class="form-inline" role="form" method="POST" action="index.php?display=MyRSVPs" id="myRSVPForm">
-      
-      <div class="form-group">
-        <label>Enterprise ID:</label>
-      </div>
+        <div class="form-group">
+          <label>Enterprise ID:</label>
+        </div>
 
-      <div class="form-group">
-        <input name="search" type="text" class="form-control" placeholder="user.name">
-      </div>
+        <div class="form-group">
+          <input name="search" type="text" class="form-control" placeholder="user.name">
+        </div>
 
-      <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find
-      </button>  
-    
-    </form>
-    <br>
-    <!-- Form ENDS here -->    
+        <button type="submit" class="btn btn-primary">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find
+        </button>
+
+      </form>
+      <br>
+      <!-- Form ENDS here -->
     ';
 
     $data = null;
+    
     // Get the data
     if( $posted['search'] !== null )
     {

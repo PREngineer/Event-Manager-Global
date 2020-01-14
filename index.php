@@ -19,6 +19,19 @@ if( $_GET['display'] === 'Announcements' )
     $page = new Announcements();
     $page->Display( $_POST['filter'] );
 }
+// Handle RSVP registrations
+else if( $_GET['display'] === 'Checkin' )
+{
+    $page = new CheckIn();
+    if( empty( $_POST ) )
+    {
+        $page->Display( $_GET );
+    }
+    else
+    {
+        $page->Display( $_POST );
+    }
+}
 // Handle Create New Member
 else if( $_GET['display'] === 'CreateMember' )
 {
