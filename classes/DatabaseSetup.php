@@ -2,9 +2,9 @@
 
 class DatabaseSetup
 {
-  
+
   //------------------------- Attributes -------------------------
-  
+
   private $type = null;
   private $name = null;
   private $user = null;
@@ -12,9 +12,9 @@ class DatabaseSetup
   private $host = null;
   private $port = null;
   private $conn = null;
-  
+
   //------------------------- Operations -------------------------
-  
+
   /**
    * __construct
    *
@@ -44,7 +44,7 @@ class DatabaseSetup
     if( $success === True )
     {
       // Save settings to file
-      $file = 'content/settings.php';
+      $file = 'settings.php';
 
       $content = '
       <?php
@@ -67,7 +67,7 @@ class DatabaseSetup
     }
     return $success;
   }
- 
+
   /**
    * first_connect - Establishes a connection to the database.
    *
@@ -76,7 +76,7 @@ class DatabaseSetup
   private function first_connect()
   {
     $dsn = '';
-    
+
     if($this->type === 'mysql')
     {
       $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';charset=utf8';
@@ -85,7 +85,7 @@ class DatabaseSetup
     {
       $dsn = 'sqlsrv:Server=' . $this->host . ',' . $this->port . ';';
     }
-    
+
     try
     {
       $this->conn =  new PDO($dsn, $this->user, $this->pass);
@@ -98,7 +98,7 @@ class DatabaseSetup
 
     return True;
   }
-  
+
   /**
    * connect - Establishes a connection to the database.
    *
@@ -110,7 +110,7 @@ class DatabaseSetup
     if($this->conn === null)
     {
       $dsn = '';
-      
+
       if($this->type === 'mysql')
       {
         $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->name . ';charset=utf8';
@@ -119,7 +119,7 @@ class DatabaseSetup
       {
         $dsn = 'sqlsrv:Server=' . $this->host . ',' . $this->port . ';Database=testdb';
       }
-      
+
       try
       {
         $this->conn = new PDO($dsn, $this->user, $this->pass);
@@ -132,7 +132,7 @@ class DatabaseSetup
     }
     return True;
   }
-  
+
   /**
    * queryDB - Executes a query against the database.
    *
@@ -145,10 +145,10 @@ class DatabaseSetup
     try
     {
       $this->connect();
-      
+
       $stmt = $this->conn->prepare($query);
       $stmt->execute();
-      
+
       $stmt = null;
     }
     catch(PDOException $error)
@@ -158,7 +158,7 @@ class DatabaseSetup
 
     return True;
   }
-    
+
   /**
    * create_adminUser - Creates the default Admin User.
    *
@@ -173,7 +173,7 @@ class DatabaseSetup
                             VALUES ('administrator','" . $pass . "','4','" . $apik . "')"
                           );
   }
-  
+
   /**
    * setup_AnnouncementsTable - Creates the Announcements Table.
    *
@@ -280,7 +280,7 @@ class DatabaseSetup
       return $create;
     }
   }
-  
+
   /**
    * setup_CompanySegmentsTable - Creates the Company Segments Table.
    *
@@ -440,7 +440,7 @@ class DatabaseSetup
       return $create;
     }
   }
-  
+
   /**
    * setup_EventTypesTable - Creates the Event Types Table.
    *
@@ -576,7 +576,7 @@ class DatabaseSetup
       return $create;
     }
   }
-  
+
   /**
    * setup_RSVPTable - Creates the RSVP Table.
    *

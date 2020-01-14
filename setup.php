@@ -1,8 +1,8 @@
 <?php
 
-if( file_exists('content/settings.php') )
+if( file_exists('settings.php') )
 {
-  header("Location: index.html");
+  header("Location: index.php");
 }
 
 ?>
@@ -20,18 +20,18 @@ if( file_exists('content/settings.php') )
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap core CSS -->
-    <link href="content/theme/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="content/theme/css/bootstrap.min.css" rel="stylesheet">
-    <link href="content/theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
-    <link href="content/theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 
     <!-- Importing jQuery and other dependencies -->
-    <script src="content/theme/js/jquery-3.2.1.min.js"></script>
-    <script src="content/theme/js/bootstrap-datepicker.min.js"></script>
-    <script src="content/theme/js/BootstrapValidator.min.js"></script>
+    <script src="theme/js/jquery-3.2.1.min.js"></script>
+    <script src="theme/js/bootstrap-datepicker.min.js"></script>
+    <script src="theme/js/BootstrapValidator.min.js"></script>
 
     <!-- Bootstrap JavaScript -->
-    <script src="content/theme/js/bootstrap.js"></script>
+    <script src="theme/js/bootstrap.js"></script>
   </head>
 
   <body>
@@ -52,12 +52,12 @@ if( file_exists('content/settings.php') )
           <button type = "button" class="close" data-dismiss = "alert">x</button>
           <b>Important!</b><br><br>
           You must provide a database <b>administrator</b> account.<br><br>
-          It will need to <b>create a database and tables</b> and it will set itself as the account to be used 
+          It will need to <b>create a database and tables</b> and it will set itself as the account to be used
           to work on this Database in the future.
         </div>
 
         <br>
-        
+
         <div class="form-group">
           <label for="username">
             Event Manager's Instance Name:
@@ -80,7 +80,7 @@ if( file_exists('content/settings.php') )
           </div>
           <small id="dbtypeHelp" class="form-text text-muted">Only the types shown are supported.</small>
         </div>
-        
+
         <div class="form-group">
           <label for="username">
             DB Username:
@@ -155,8 +155,8 @@ if( file_exists('content/settings.php') )
 
 
       <?php
-      
-      require 'content/classes/DatabaseSetup.php';
+
+      require 'classes/DatabaseSetup.php';
 
       // If the POST has information,
       // Check if the information provided was correct.
@@ -164,7 +164,7 @@ if( file_exists('content/settings.php') )
       {
         $dbsetup = new DatabaseSetup($_POST);
         $check = $dbsetup->test();
-        
+
         // If the information is incorrect
         if($check !== True)
         {
@@ -226,7 +226,7 @@ if( file_exists('content/settings.php') )
 
           // Create Attendance Table
           $result = $dbsetup->setup_AttendanceTable();
-          
+
           if($result === True)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
@@ -261,7 +261,7 @@ if( file_exists('content/settings.php') )
                     $result .
                   '</div>';
           }
-          
+
           // Create Company Segments Table
           $result = $dbsetup->setup_CompanySegmentsTable();
 
@@ -280,7 +280,7 @@ if( file_exists('content/settings.php') )
                     $result .
                   '</div>';
           }
-          
+
           // Create Event Change Log Table
           $result = $dbsetup->setup_EventChangeLogTable();
 
@@ -356,7 +356,7 @@ if( file_exists('content/settings.php') )
                     $result .
                   '</div>';
           }
-          
+
           // Create Event Types Table
           $result = $dbsetup->setup_EventTypesTable();
 
@@ -451,7 +451,7 @@ if( file_exists('content/settings.php') )
                     $result .
                   '</div>';
           }
-          
+
           // Create RSVP Table
           $result = $dbsetup->setup_RSVPTable();
 
@@ -534,7 +534,7 @@ if( file_exists('content/settings.php') )
           <p>
             If you don\'t see any errors or everything already exists,
           </p>
-          <a class="btn btn-primary" href="index.html">Click Here</a>
+          <a class="btn btn-primary" href="index.php">Click Here</a>
           <br><br><br>
           <p>
             You admin user and password combination is:<br>
