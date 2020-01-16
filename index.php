@@ -151,6 +151,32 @@ else if( $_GET['display'] === 'CreateEvent' )
     $page = new CreateEvent();
     $page->Display( $_POST );
 }
+// Show list of Events pending closure
+else if( $_GET['display'] === 'POCCloseEvent' )
+{
+    $page = new POCPendingClosure();
+    if( empty( $_POST ) )
+    {
+        $page->Display( $_GET );
+    }
+    else
+    {
+        $page->Display( $_POST );
+    }
+}
+// Show list of POC Events
+else if( $_GET['display'] === 'POCMyEvents' )
+{
+    $page = new POCMyEvents();
+    if( empty( $_POST ) )
+    {
+        $page->Display( $_GET );
+    }
+    else
+    {
+        $page->Display( $_POST );
+    }
+}
 
 /****************
     Approver Pages
@@ -172,5 +198,4 @@ else
 
 
 echo '<br><br>';
-// print_r($_POST);
 ?>
