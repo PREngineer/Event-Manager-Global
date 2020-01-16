@@ -71,7 +71,7 @@ class POCMenu extends Page
         </td>
       </tr>
       <tr>
-        <td><a href="index.php?display=MyEvents" style="cursor:pointer;">My Events</a></td>
+        <td><a href="index.php?display=POCMyEvents" style="cursor:pointer;">My Events</a></td>
         <td>
           Use this option to view and manage your events.  You can perform the
           following actions on your existing events:<br>
