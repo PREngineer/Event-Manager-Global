@@ -59,8 +59,7 @@ class POCMyEvents extends Page
   {
     $date = date('Y-m-d');
 
-    return $this->db->query_DB("SELECT `ID`, `Name`, `Date`, `Start`, `End`, `Location`, `Address`, `Created`, `Creator_User_ID`, `Person_Code`, `Remote_Code`,
-                                  `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+    return $this->db->query_DB("SELECT *
                                 FROM `Events`
                                 WHERE `ID` = '$id'"
                               )[0];
@@ -85,7 +84,7 @@ class POCMyEvents extends Page
   {
     return $this->db->query_DB("SELECT * FROM `Event Objectives`");
   }
-  
+
   /**
    * get_EventTargets - Retrieves all of the Event Targets in the system.
    *
@@ -95,7 +94,7 @@ class POCMyEvents extends Page
   {
     return $this->db->query_DB("SELECT * FROM `Event Targets`");
   }
-  
+
   /**
    * get_EventTypes - Retrieves all of the Event Types in the system.
    *
@@ -118,6 +117,46 @@ class POCMyEvents extends Page
                                 WHERE SYMBOL <> 'GLOBAL'
                                 ORDER BY O.Symbol ASC
                               ");
+  }
+
+  private function get_OrgSymbol( $id )
+  {
+    return $this->db->query_DB("SELECT Symbol
+                                FROM Orgs
+                                WHERE ID = '$id'
+                              ")[0]['Symbol'];
+  }
+
+  private function get_CommitteeID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Sponsor Committees`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
+  private function get_ObjectiveID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Event Objectives`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
+  private function get_TargetID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Event Targets`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
+  private function get_TypeID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Event Types`
+                                WHERE Name = '$name'
+                              ")[0][0];
   }
 
   /****************
@@ -154,6 +193,26 @@ class POCMyEvents extends Page
                               );
   }
 
+  private function edit( $data )
+  {
+    return $this->db->query_DB("UPDATE `Events`
+                                SET `Name`              = '" . $data['eventName'] . "',
+                                    `Overview`          = '" . $data['overview'] . "',
+                                    `Creator_User_ID`   = '" . $data['creator'] . "',
+                                    `Date`              = '" . $data['eventDate'] . "',
+                                    `Start`             = '" . $data['start'] . ":00',
+                                    `End`               = '" . $data['end'] . ":00',
+                                    `Location`          = '" . $data['location'] . "',
+                                    `Address`           = '" . $data['address'] . "',
+                                    `Estimated_Budget`  = '" . $data['estimatedBudget'] . "',
+                                    `Committee_ID`      = '" . $this->get_CommitteeID( $data['sponsorCommittee'] ) . "',
+                                    `Target`            = '" . $this->get_TargetID( $data['eventTarget'] ) . "',
+                                    `Type`              = '" . $this->get_TypeID( $data['eventType'] ) . "',
+                                    `Objective`         = '" . $this->get_ObjectiveID( $data['eventObjective'] ) . "'
+                                WHERE `ID`              = '" . $data['id'] . "'"
+                              );
+  }
+
   /****************
       Page Display Functions
   ****************/
@@ -167,22 +226,16 @@ class POCMyEvents extends Page
    */
   public function Display( $get )
   {
-    // Set the page header
-    $this->content .= '
-      <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">My Events</h1>
-      <hr>
-    ';
-
     // Fresh load
     if( !isset( $get['del'] ) && !isset( $get['rec'] ) && !isset($get['ed']) || !isset($get['id']) )
     {
       $this->Display_List();
     }
     // Process deletion
-    else if( $get['del'] === '1' && isset($get['id']) )
+    else if( $get['del'] === '1' && isset( $get['id'] ) )
     {
       $success = $this->delete( $get['id'] );
-      
+
       if( $success === True )
       {
         $this->content .= '
@@ -204,11 +257,11 @@ class POCMyEvents extends Page
         </div>
         ';
       }
-      
+
       $this->Display_List();
     }
     // Process recovery
-    else if( $get['rec'] === '1' && isset($get['id']) )
+    else if( $get['rec'] === '1' && isset( $get['id'] ) )
     {
       $success = $this->recover( $get['id'] );
 
@@ -237,14 +290,14 @@ class POCMyEvents extends Page
       $this->Display_List();
     }
     // Edit
-    else if( $get['ed'] === '0' && isset($get['id']) )
+    else if( $get['ed'] === '0' && isset( $get['id'] ) )
     {
       $this->Display_Form( $get['id'] );
     }
     // process edit
-    else if( $get['ed'] === '1' && isset($get['id']) )
+    else if( $get['ed'] === '1' && isset( $get['id'] ) )
     {
-      $success = $this->edit( $get['id'] );
+      $success = $this->edit( $get );
 
       if( $success === True )
       {
@@ -260,7 +313,7 @@ class POCMyEvents extends Page
         $this->content .= '
         <div class="container alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
-          An error has occurred while deleting the event.<br>
+          An error has occurred while updating the event.<br>
           Error: ' . $success . '
           <br><br>
           Refresh to try again.
@@ -283,13 +336,18 @@ class POCMyEvents extends Page
    */
   public function Display_Form( $id )
   {
+    $thisOne    = $this->get_EventData( $id );
     $committees = $this->get_Committees();
     $targets    = $this->get_EventTargets();
     $types      = $this->get_EventTypes();
     $objectives = $this->get_EventObjectives();
     $orgs       = $this->getOrgs();
 
+    // Set the page header
     $this->content .= '
+    <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Edit My Event</h1>
+    <hr>
+
     <ol class="breadcrumb">
       <li>
         <a href="index.php?display=POCMenu" style="cursor:pointer;">
@@ -302,15 +360,15 @@ class POCMyEvents extends Page
         </a>
       </li>
     </ol>
-    ';
 
-    $this->content .= '
     <!-- Form STARTS here -->
 
-    <form class="container" method="POST" id="createEventForm">';
-
-    $this->content .= '
+    <form class="container" method="POST" id="createEventForm">
       <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
+
+      <input type="hidden" name="ed" value="1">
+      <input type="hidden" name="id" value="' . $_GET['id'] . '">
+      <input type="hidden" name="creator" value="' . $thisOne['Creator_User_ID'] . '">
 
       <div class="form-group">
         <label for="creator"> <label class="text-danger">*</label> Event Owner\'s Enterprise ID:</label>
@@ -319,7 +377,7 @@ class POCMyEvents extends Page
             <i class="glyphicon glyphicon-user"></i>
           </span>
           <input name="creator" type="text" class="form-control" id="creator"
-          placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true" value="' . $_SESSION['userID'] . '" disabled>
+          placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true" value="' . $thisOne['Creator_User_ID'] . '" disabled>
         </div>
       <small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don\'t include "@company.com"</small>
       </div>
@@ -338,11 +396,19 @@ class POCMyEvents extends Page
           <select name="org" class="form-control" id="org" required>
             <option></option>
         ';
-      
+
         foreach( $orgs as $org )
         {
-        $this->content .= '<option value="'. $org['Symbol'] . '">'. $org['Symbol'] . '</option>
+          if( $org === $this->get_OrgSymbol( $thisOne['Org_ID'] ) )
+          {
+            $this->content .= '<option value="'. $org['Symbol'] . '">'. $org['Symbol'] . '</option>
             ';
+          }
+          else
+          {
+            $this->content .= '<option value="'. $org['Symbol'] . '" selected>'. $org['Symbol'] . '</option>
+            ';
+          }
         }
 
         $this->content .= '
@@ -353,7 +419,7 @@ class POCMyEvents extends Page
       else
       {
         $this->content .= '
-        <input type="hidden" name="org" value="' . $_SESSION['Org_ID'] . '">
+        <input type="hidden" name="org" value="' . $thisOne['Org_ID'] . '">
         ';
       }
 
@@ -364,7 +430,8 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-pencil"></i>
           </span>
-          <input name="eventName" type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" aria-required="true">
+          <input name="eventName" type="text" class="form-control" value="' . $thisOne['Name'] . '" id="eventName"
+          placeholder="e.g. Professional Development" aria-required="true">
         </div>
       </div>
 
@@ -374,7 +441,8 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-pencil"></i>
           </span>
-          <textarea name="overview" rows="5" type="text" class="form-control" id="overview" placeholder="e.g. This is a brief description of the event." aria-required="true"></textarea>
+          <textarea name="overview" rows="5" type="text" class="form-control" id="overview"
+          placeholder="e.g. This is a brief description of the event." aria-required="true">' . $thisOne['Overview'] . '</textarea>
         </div>
       </div>
 
@@ -384,7 +452,8 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-calendar"></i>
           </span>
-          <input name="eventDate" class="form-control" type="text" id="eventDate" placeholder="YYYY-MM-DD" aria-required="true">
+          <input name="eventDate" class="form-control" type="text" value="' . $thisOne['Date'] . '" id="eventDate"
+          placeholder="YYYY-MM-DD" aria-required="true">
         </div>
       </div>
 
@@ -394,7 +463,7 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-time"></i>
           </span>
-          <input name="start" class="form-control" type="text" id="start" placeholder="12:00" aria-required="true">
+          <input name="start" class="form-control" type="text" value="' . $thisOne['Start'] . '" id="start" placeholder="12:00" aria-required="true">
         </div>
       </div>
 
@@ -404,7 +473,7 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-time"></i>
           </span>
-          <input name="end" class="form-control" type="text" id="end" placeholder="17:00" aria-required="true">
+          <input name="end" class="form-control" type="text" value="' . $thisOne['End'] . '" id="end" placeholder="17:00" aria-required="true">
         </div>
       </div>
 
@@ -414,7 +483,8 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-search"></i>
           </span>
-          <input name="location" type="text" class="form-control" id="location" placeholder="Arlington Office" aria-required="true">
+          <input name="location" type="text" class="form-control" value="' . $thisOne['Location'] . '" id="location"
+          placeholder="Arlington Office" aria-required="true">
         </div>
       </div>
 
@@ -424,7 +494,8 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-pushpin"></i>
           </span>
-          <input name="address" type="text" class="form-control" id="address" placeholder="123 First St., City, State, Country" aria-required="true">
+          <input name="address" type="text" class="form-control" value="' . $thisOne['Address'] . '" id="address"
+          placeholder="123 First St., City, State, Country" aria-required="true">
         </div>
       </div>
 
@@ -434,7 +505,8 @@ class POCMyEvents extends Page
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-usd"></i>
           </span>
-          <input name="estimatedBudget" type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" aria-describedby="estimatedBudgetHelp" aria-required="true">
+          <input name="estimatedBudget" type="text" class="form-control" value="' . $thisOne['Estimated_Budget'] . '" id="estimatedBudget"
+          placeholder="1234.56" aria-describedby="estimatedBudgetHelp" aria-required="true">
         </div>
         <small id="estimatedBudgetHelp" class="form-text text-muted">Do not include commas.</small>
       </div>
@@ -451,8 +523,16 @@ class POCMyEvents extends Page
 
         foreach ($committees as $entry => $value)
         {
-          $this->content .= ' <option>' . $value['Name'] . '</option>
-          ';
+          if( $thisOne['Committee_ID'] === $value['ID'] )
+          {
+            $this->content .= ' <option selected>' . $value['Name'] . '</option>
+            ';
+          }
+          else
+          {
+            $this->content .= ' <option>' . $value['Name'] . '</option>
+            ';
+          }
         }
 
         $this->content .= '
@@ -472,8 +552,16 @@ class POCMyEvents extends Page
 
         foreach ($targets as $entry => $value)
         {
-          $this->content .= '<option>' . $value['Name'] . '</option>
-          ';
+          if( $thisOne['Target'] === $value['ID'] )
+          {
+            $this->content .= ' <option selected>' . $value['Name'] . '</option>
+            ';
+          }
+          else
+          {
+            $this->content .= ' <option>' . $value['Name'] . '</option>
+            ';
+          }
         }
 
         $this->content .= '
@@ -490,11 +578,19 @@ class POCMyEvents extends Page
           <select onchange="changeObjectives(this.value)" name="eventType" class="form-control" id="eventType" aria-required="true">
             <option></option>
         ';
-        
+
         foreach ($types as $entry => $value)
         {
-          $this->content .= '<option>' . $value['Name'] . '</option>
-          ';
+          if( $thisOne['Type'] === $value['ID'] )
+          {
+            $this->content .= ' <option selected>' . $value['Name'] . '</option>
+            ';
+          }
+          else
+          {
+            $this->content .= ' <option>' . $value['Name'] . '</option>
+            ';
+          }
         }
 
         $this->content .= '
@@ -511,13 +607,21 @@ class POCMyEvents extends Page
           <select name="eventObjective" class="form-control" id="eventObjective" aria-required="true">
             <option></option>
           ';
-          
+
           foreach ($objectives as $entry => $value)
           {
-            $this->content .= '<option>' . $value['Name'] . '</option>
-            ';
+            if( $thisOne['Objective'] === $value['ID'] )
+            {
+              $this->content .= ' <option selected>' . $value['Name'] . '</option>
+              ';
+            }
+            else
+            {
+              $this->content .= ' <option>' . $value['Name'] . '</option>
+              ';
+            }
           }
-      
+
           $this->content .= '
             </select>
         </div>
@@ -530,11 +634,8 @@ class POCMyEvents extends Page
 
     </form>
     <!-- Form ENDS here -->
-    ';
 
-      
-    $this->content .= '
-    
+
     <!-------------- ALL Form related JavaScript -------------->
 
     <script type="text/javascript">
@@ -560,13 +661,13 @@ class POCMyEvents extends Page
       {
         $(\'#start\').timepicker({ \'timeFormat\': \'H:i\' });
       });
-      
+
       //************** End Time Picker **************//
       $(function()
       {
         $(\'#end\').timepicker({ \'timeFormat\': \'H:i\' });
       });
-      
+
       //************** Passing event data to javascript for dropdown handling **************//
 
       // JavaScript array of Event Objectives
@@ -584,7 +685,7 @@ class POCMyEvents extends Page
         ';
       }
     }
-    
+
     $this->content .= '
         ];
     ';
@@ -605,11 +706,11 @@ class POCMyEvents extends Page
         ';
       }
     }
-    
+
     $this->content .= '
         ];
     ';
-    
+
     // Creating a JavaScript array of Event Targets
     $this->content .= '
         // JavaScript array of Event Targets
@@ -626,10 +727,10 @@ class POCMyEvents extends Page
         ';
       }
     }
-      
+
     $this->content .= '
       ];
-  
+
       //************** Change Types based on selection of Target **************//
       // Mark the Dropdown to update
       var obj = document.getElementById("eventType");
@@ -661,7 +762,7 @@ class POCMyEvents extends Page
           {
             // To use in the next function
             target = eventTargets[i].ID;
-            
+
             // Look for all Types that belong to that Event Target
             for(var j = 0; j < eventTypes.length; j++)
             {
@@ -737,16 +838,24 @@ class POCMyEvents extends Page
             },
             fields:
             {
+                ';
+
+      // If Global Admin
+      if( $_SESSION['userRole'] == 4 )
+      {
+        $this->content .= '
                 creator:
                 {
                     validators:
                     {
                         notEmpty:
                         {
-                            message: \'ERROR: Please enter your Enterprise ID.\'
+                            message: \'ERROR: Please enter the org.\'
                         }
                     }
-                },';
+                },
+        ';
+      }
 
       // If Global Admin
       if( $_SESSION['userRole'] == 4 )
@@ -764,7 +873,7 @@ class POCMyEvents extends Page
                 },
         ';
       }
-      
+
       $this->content .= '
                 eventName:
                 {
@@ -920,7 +1029,7 @@ class POCMyEvents extends Page
     <!-- End Scripts for Inline Error Messages -->
     ';
   }
-  
+
   /**
    * Display_List - Display the list of events.
    *
@@ -929,8 +1038,12 @@ class POCMyEvents extends Page
   public function Display_List( )
   {
     $events = $this->get_MyEvents( 'poc');//$_SESSION['userID'] );
-    
+
+    // Set the page header
     $this->content .= '
+    <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">My Events</h1>
+    <hr>
+
     <ol class="breadcrumb">
       <li>
         <a href="index.php?display=POCMenu" style="cursor:pointer;">
@@ -1038,7 +1151,7 @@ class POCMyEvents extends Page
             <a href="index.php?display=POCMyEvents&rec=1&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-magnet" title="Recover" style="color: green"></i></a>
         ';
       }
-      
+
       $this->content .= '
           </td>
 

@@ -6,16 +6,16 @@ protectPOC();
 
 class CreateEvent extends Page
 {
-  
+
   //------------------------- Attributes -------------------------
   private $db      = null;
 
   public $content  = '<br><br>';
   public $title    = "Event Manager - Create Event";
   public $keywords = "event manager, create event";
-  
+
   //------------------------- Operations -------------------------
-  
+
   /**
    * __construct
    *
@@ -24,7 +24,7 @@ class CreateEvent extends Page
   public function __construct()
   {
     $this->db = new Database();
-    
+
     parent::__construct();
   }
 
@@ -44,22 +44,23 @@ class CreateEvent extends Page
                                   (`Org_ID`, `Name`, `Overview`, `Date`, `Start`, `End`, `Location`, `Address`, `Estimated_Budget`, `Committee_ID`, `Target`,
                                     `Type`, `Objective`, `Creator_User_ID`, `Person_Code`, `Remote_Code`)
                                 VALUES (
-                                  '" . $data['org']              . "', 
-                                  '" . $data['eventName']        . "', 
-                                  '" . $data['overview']         . "', 
-                                  '" . $data['eventDate']        . "', 
-                                  '" . $data['start']            . ":00', 
-                                  '" . $data['end']              . ":00', 
-                                  '" . $data['location']         . "', 
-                                  '" . $data['address']          . "', 
-                                  '" . $data['estimatedBudget']  . "', 
-                                  '" . $data['sponsorCommittee'] . "', 
-                                  '" . $data['eventTarget']      . "', 
-                                  '" . $data['eventType']        . "', 
-                                  '" . $data['eventObjective']   . "', 
-                                  '" . $data['creator']          . "', 
-                                  '" . $code1                    . "', 
-                                  '" . $code2                    . "' )"
+                                  '" . $data['org']                                         . "',
+                                  '" . $data['eventName']                                   . "',
+                                  '" . nl2br( $data['overview'] )                           . "',
+                                  '" . $data['eventDate']                                   . "',
+                                  '" . $data['start']                                       . ":00',
+                                  '" . $data['end']                                         . ":00',
+                                  '" . $data['location']                                    . "',
+                                  '" . $data['address']                                     . "',
+                                  '" . $data['estimatedBudget']                             . "',
+                                  '" . $this->get_CommitteeID( $data['sponsorCommittee'] )  . "',
+                                  '" . $this->get_TargetID( $data['eventTarget'] )          . "',
+                                  '" . $this->get_TypeID( $data['eventType'] )              . "',
+                                  '" . $this->get_ObjectiveID( $data['eventObjective'] )    . "',
+                                  '" . $data['creator']                                     . "',
+                                  '" . $code1                                               . "',
+                                  '" . $code2                                               . "'
+                                )"
                               );
   }
 
@@ -82,7 +83,7 @@ class CreateEvent extends Page
   {
     return $this->db->query_DB("SELECT * FROM `Event Objectives`");
   }
-  
+
   /**
    * get_EventTargets - Retrieves all of the Event Targets in the system.
    *
@@ -92,7 +93,7 @@ class CreateEvent extends Page
   {
     return $this->db->query_DB("SELECT * FROM `Event Targets`");
   }
-  
+
   /**
    * get_EventTypes - Retrieves all of the Event Types in the system.
    *
@@ -117,6 +118,38 @@ class CreateEvent extends Page
                               ");
   }
 
+  private function get_CommitteeID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Sponsor Committees`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
+  private function get_ObjectiveID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Event Objectives`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
+  private function get_TargetID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Event Targets`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
+  private function get_TypeID( $name )
+  {
+    return $this->db->query_DB("SELECT ID
+                                FROM `Event Types`
+                                WHERE Name = '$name'
+                              ")[0][0];
+  }
+
   /**
    * handlePOST - Does the actual event creation.
    *
@@ -127,14 +160,12 @@ class CreateEvent extends Page
   private function handlePOST( $data )
   {
     $success = $this->createEvent( $data );
-    
+
     if( $success === True )
     {
       $this->content .= '
       <div class="container alert alert-success alert-dismissible" role="alert"">
         <button type = "button" class="close" data-dismiss = "alert">x</button>
-          Success!
-          <hr>
           Your event has been registered!
       </div>
       ';
@@ -171,7 +202,7 @@ class CreateEvent extends Page
     $types      = $this->get_EventTypes();
     $objectives = $this->get_EventObjectives();
     $orgs       = $this->getOrgs();
-    
+
     // Set the page header
     $this->content .= '
     <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Create Event</h1>
@@ -187,7 +218,7 @@ class CreateEvent extends Page
               </a>
             </li>
             <li>
-              <a href="index.php?display=MyEvents" style="cursor:pointer;">
+              <a href="index.php?display=POCMyEvents" style="cursor:pointer;">
                 My Events
               </a>
             </li>
@@ -244,7 +275,7 @@ class CreateEvent extends Page
           <select name="org" class="form-control" id="org" required>
             <option></option>
             ';
-      
+
         foreach( $orgs as $org )
         {
         $this->content .= '<option value="'. $org['Symbol'] . '">'. $org['Symbol'] . '</option>
@@ -396,7 +427,7 @@ class CreateEvent extends Page
           <select onchange="changeObjectives(this.value)" name="eventType" class="form-control" id="eventType" aria-required="true">
             <option></option>
         ';
-        
+
         foreach ($types as $entry => $value)
         {
           $this->content .= '<option>' . $value['Name'] . '</option>
@@ -417,13 +448,13 @@ class CreateEvent extends Page
           <select name="eventObjective" class="form-control" id="eventObjective" aria-required="true">
             <option></option>
           ';
-          
+
           foreach ($objectives as $entry => $value)
           {
             $this->content .= '<option>' . $value['Name'] . '</option>
             ';
           }
-      
+
           $this->content .= '
             </select>
         </div>
@@ -438,9 +469,9 @@ class CreateEvent extends Page
     <!-- Form ENDS here -->
     ';
 
-      
+
     $this->content .= '
-    
+
     <!-------------- ALL Form related JavaScript -------------->
 
     <script type="text/javascript">
@@ -466,13 +497,13 @@ class CreateEvent extends Page
       {
         $(\'#start\').timepicker({ \'timeFormat\': \'H:i\' });
       });
-      
+
       //************** End Time Picker **************//
       $(function()
       {
         $(\'#end\').timepicker({ \'timeFormat\': \'H:i\' });
       });
-      
+
       //************** Passing event data to javascript for dropdown handling **************//
 
       // JavaScript array of Event Objectives
@@ -490,7 +521,7 @@ class CreateEvent extends Page
         ';
       }
     }
-    
+
     $this->content .= '
         ];
     ';
@@ -511,11 +542,11 @@ class CreateEvent extends Page
         ';
       }
     }
-    
+
     $this->content .= '
         ];
     ';
-    
+
     // Creating a JavaScript array of Event Targets
     $this->content .= '
         // JavaScript array of Event Targets
@@ -532,10 +563,10 @@ class CreateEvent extends Page
         ';
       }
     }
-      
+
     $this->content .= '
       ];
-  
+
       //************** Change Types based on selection of Target **************//
       // Mark the Dropdown to update
       var obj = document.getElementById("eventType");
@@ -567,7 +598,7 @@ class CreateEvent extends Page
           {
             // To use in the next function
             target = eventTargets[i].ID;
-            
+
             // Look for all Types that belong to that Event Target
             for(var j = 0; j < eventTypes.length; j++)
             {
@@ -670,7 +701,7 @@ class CreateEvent extends Page
                 },
         ';
       }
-      
+
       $this->content .= '
                 eventName:
                 {
