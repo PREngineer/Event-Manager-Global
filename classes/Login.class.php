@@ -154,6 +154,13 @@ class Login extends Page
     }
   }
 
+  /**
+   * setupCookie - Create the cookie for this session.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function setupCookie( $data )
   {
     // Initialize the session

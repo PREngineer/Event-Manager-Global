@@ -18,6 +18,13 @@ class CurrentEventsBlock
   
   //------------------------- Operations -------------------------
   
+  /**
+   * __construct - Builds a new object.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   public function __construct($data)
   {
     $this->ID = $data['ID'];

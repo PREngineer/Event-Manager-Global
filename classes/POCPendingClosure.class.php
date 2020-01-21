@@ -28,6 +28,11 @@ class POCPendingClosure extends Page
       Helper Functions
   ****************/
 
+  /**
+   * get_MyEventsPendingAction - Retrieve a list of items pending closure.
+   *
+   * @return void
+   */
   private function get_MyEventsPendingAction()
   {
     $date = date('Y-m-d');
@@ -44,6 +49,13 @@ class POCPendingClosure extends Page
                               );
   }
 
+  /**
+   * get_EventData - Get the data of a specific event.
+   *
+   * @param  mixed $id
+   *
+   * @return void
+   */
   private function get_EventData( $id )
   {
     $date = date('Y-m-d');
@@ -59,6 +71,13 @@ class POCPendingClosure extends Page
       Core Functionality Functions
   ****************/
 
+  /**
+   * closeEvent - Set the actual budget of the event and close it.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function closeEvent( $data )
   {
     return $this->db->query_DB("UPDATE `Events`
@@ -102,6 +121,11 @@ class POCPendingClosure extends Page
     parent::Display();
   }
 
+  /**
+   * Display_List - Shows a list of all the events pending closure.
+   *
+   * @return void
+   */
   public function Display_List( )
   {
     $events = $this->get_MyEventsPendingAction();

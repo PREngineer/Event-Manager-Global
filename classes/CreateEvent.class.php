@@ -117,6 +117,13 @@ class CreateEvent extends Page
                               ");
   }
 
+  /**
+   * handlePOST - Does the actual event creation.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function handlePOST( $data )
   {
     $success = $this->createEvent( $data );

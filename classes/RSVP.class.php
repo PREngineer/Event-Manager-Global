@@ -72,6 +72,13 @@ class RSVP extends Page
                               )[0]['Cancel'];
   }
   
+  /**
+   * registerRSVP - Adds the RSVP entry to the database.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function registerRSVP( $data )
   {
     $cancelled = $this->isRegistered( $data['ID'], $data['Eid'] );

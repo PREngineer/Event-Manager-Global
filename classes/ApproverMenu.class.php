@@ -47,6 +47,13 @@ class ApproverMenu extends Page
                               ");
   }
 
+  /**
+   * handleInteractions - Makes the changes in the database.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function handleInteractions( $data )
   {
     $id       = $data['id'];

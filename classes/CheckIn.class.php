@@ -43,6 +43,13 @@ class CheckIn extends Page
                               )[0];
   }
 
+  /**
+   * get_MemberID - Retrieves the Member ID number.
+   *
+   * @param  mixed $eid
+   *
+   * @return void
+   */
   public function get_MemberID( $eid )
   {
     return $this->db->query_DB("SELECT `ID`
@@ -71,6 +78,13 @@ class CheckIn extends Page
       Core Functionality Functions
   ****************/
 
+  /**
+   * checkIn - Adds the attendance entry.
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   private function checkIn( $data )
   {
     // Has the user already checked in?
