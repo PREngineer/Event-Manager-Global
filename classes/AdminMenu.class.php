@@ -67,7 +67,7 @@ class AdminMenu extends Page
         </thead>
 
         <tr>
-          <td><a href="index.php?display=AnnouncementsMenu" style="cursor:pointer;">Announcements</a></td>
+          <td><a href="index.php?display=AdminAnnouncementsMenu" style="cursor:pointer;">Announcements</a></td>
           <td>
             Use this option to manage the announcements:<br>
             * Create<br>

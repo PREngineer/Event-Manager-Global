@@ -29,7 +29,7 @@ class AnnouncementsFilter
   public function Display()
   {
     $content .= '
-      <form class="form-inline" role="form" method="POST" action="index.php?display=Announcements" id="filterForm">
+      <form class="form-inline" role="form" method="POST" id="filterForm">
 
         <div class="form-group">
           <label>Filter by Org:</label>

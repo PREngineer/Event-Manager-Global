@@ -134,6 +134,11 @@ else if( $_GET['display'] === 'AdminMenu' )
     $page = new AdminMenu();
     $page->Display();
 }
+else if( $_GET['display'] === 'AdminAnnouncementsMenu' )
+{
+    $page = new AdminAnnouncementsMenu();
+    $page->Display( $_POST['filter'] );
+}
 
 /****************
     POC Pages
